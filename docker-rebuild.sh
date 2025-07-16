@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "🔄 Stopping existing containers..."
+docker-compose down
+
+echo "🧹 Removing old images to force rebuild..."
+docker rmi beeja-supa-merge-frontend beeja-supa-merge-backend 2>/dev/null || true
+
+echo "🏗️ Building and starting containers..."
+docker-compose up --build -d
+
+echo "📊 Checking container status..."
+docker-compose ps
+
+echo "📋 Viewing logs (press Ctrl+C to exit)..."
+docker-compose logs -f
