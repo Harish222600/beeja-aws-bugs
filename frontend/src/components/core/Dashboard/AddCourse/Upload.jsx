@@ -35,15 +35,56 @@ export default function Upload({ name, label, register, setValue, errors, video 
       : { "video/*": [".mp4", ".mov", ".avi", ".mkv", ".webm"] },
     onDrop,
     maxSize: video ? undefined : 10 * 1024 * 1024, // 10MB for images, unlimited for videos
-    noClick: true, // Disable default click behavior to handle it manually
+    noClick: false, // Enable click behavior on the entire dropzone
+    noKeyboard: true, // Disable keyboard events to prevent conflicts
   })
 
   // Handle browse button click
   const handleBrowseClick = (e) => {
+    e.preventDefault()
     e.stopPropagation()
+    console.log("Browse button clicked, triggering file input")
+    
+    // Create a new file input element if ref doesn't work
     if (inputRef.current) {
-      inputRef.current.click()
+      console.log("File input ref found, triggering click")
+      try {
+        inputRef.current.click()
+      } catch (error) {
+        console.error("Error clicking file input:", error)
+        // Fallback: create a temporary file input
+        createTemporaryFileInput()
+      }
+    } else {
+      console.error("File input ref not found, creating temporary input")
+      createTemporaryFileInput()
     }
+  }
+
+  // Fallback method to create temporary file input
+  const createTemporaryFileInput = () => {
+    const tempInput = document.createElement('input')
+    tempInput.type = 'file'
+    tempInput.accept = !video ? "image/*" : "video/*"
+    tempInput.style.display = 'none'
+    
+    tempInput.onchange = (e) => {
+      const files = e.target.files
+      if (files && files.length > 0) {
+        const file = files[0]
+        console.log("Selected file via temporary input:", {
+          name: file.name,
+          type: file.type,
+          size: file.size
+        })
+        onDrop([file])
+      }
+      // Clean up
+      document.body.removeChild(tempInput)
+    }
+    
+    document.body.appendChild(tempInput)
+    tempInput.click()
   }
 
   const previewFile = (file) => {
@@ -329,17 +370,8 @@ export default function Upload({ name, label, register, setValue, errors, video 
             className="flex w-full flex-col items-center p-4 md:p-6"
             {...getRootProps()}
           >
-            <input 
-              {...getInputProps()} 
-              ref={inputRef}
-              style={{ display: 'none' }}
-              onChange={(e) => {
-                const files = e.target.files
-                if (files && files.length > 0) {
-                  onDrop(Array.from(files))
-                }
-              }}
-            />
+            {/* Use dropzone input for both drag and click functionality */}
+            <input {...getInputProps()} />
             <div className="grid aspect-square w-14 place-items-center rounded-full bg-richblack-800 transition-all duration-200 hover:bg-richblack-700">
               <FiUploadCloud className="text-2xl text-yellow-50" />
             </div>
