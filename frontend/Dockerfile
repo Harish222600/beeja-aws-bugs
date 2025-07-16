@@ -1,17 +1,18 @@
-FROM node:18 AS build
+FROM node:18
+
 WORKDIR /app
-COPY package.json ./
-RUN npm install --force
+
 COPY . .
 
+# Increase memory limit
+ENV NODE_OPTIONS="--max-old-space-size=2048"
+
+RUN npm install
 RUN npm run build
 
 FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
 
-# Install curl for health checks
-RUN apk add --no-cache curl
-
-COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
