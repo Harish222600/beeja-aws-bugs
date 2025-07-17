@@ -453,7 +453,7 @@ const startServer = async () => {
         const PORT = process.env.PORT || 5001;
         server.listen(PORT, () => {
             console.log(`🚀 Server Started on PORT ${PORT}`);
-            console.log(`🔌 Socket.IO server is running on http://localhost:${PORT}`);
+            console.log(`🔌 Socket.IO server is running on http://35.177.233.147:${PORT}`);
             console.log('🔍 Database connection monitoring started');
             console.log('✅ Server initialization completed successfully!');
         });

@@ -479,7 +479,7 @@ exports.resetPassword = async (req, res) => {
                             </div>
 
                             <div class="cta-container">
-                                <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/login" class="cta">
+                                <a href="${process.env.FRONTEND_URL || 'http://35.177.233.147:5173'}/login" class="cta">
                                     Log In to Your Account
                                 </a>
                             </div>

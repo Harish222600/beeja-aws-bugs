@@ -89,7 +89,7 @@ const faqAnswerTemplate = (userName, question, answer) => {
                 
                 <p>You can view this and other frequently asked questions on our website.</p>
                 
-                <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/about" class="button">
+                <a href="${process.env.FRONTEND_URL || 'http://35.177.233.147:5173'}/about" class="button">
                     View All FAQs
                 </a>
             </div>
