@@ -24,7 +24,7 @@ import {
 import BeejaLogo from "../../assets/Logo/Logo-Small-Light.png";
 
 // Footer data
-const BottomFooter = ["Privacy Policy", "Cookie Policy", "Terms"];
+const BottomFooter = ["Privacy Policy",  "Terms"];
 
 const socialLinks = [
   { icon: ImFacebook2, href: "https://facebook.com/beeja", color: "hover:text-blue-500", name: "Facebook" },

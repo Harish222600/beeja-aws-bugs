@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -244,7 +245,7 @@ const Home = () => {
               ctabtn1={{ btnText: "Continue Lesson", link: "/signup", active: true }}
               ctabtn2={{ btnText: "Learn More", link: "/signup", active: false }}
               codeColor={"text-white"}
-              codeblock={`import React from \"react\";\n import CTAButton from \"./Button\";\nimport TypeAnimation from \"react-type\";\nimport { FaArrowRight } from \"react-icons/fa\";\n\nconst Home = () => {\nreturn (\n<div>Home</div>\n)\n}\nexport default Home;`}
+              codeblock={`import React from \"react\";\nconst Home = () => {\nreturn (\n<div>Home</div>\n)\n}\nexport default Home;`}
               backgroundGradient={"code-block2-grad"}
             />
           </motion.div>

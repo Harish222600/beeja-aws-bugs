@@ -79,7 +79,7 @@ const SplitScreen = () => {
               Join thousands of successful graduates who have transformed their careers through our certified programs.
             </p>
           </div>
-          <Link to="/catalog">
+          <Link to="/courses">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

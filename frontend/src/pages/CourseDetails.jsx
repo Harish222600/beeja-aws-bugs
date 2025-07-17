@@ -16,6 +16,7 @@ import CourseDetailsCard from "../components/core/Course/CourseDetailsCard"
 import { formatDate } from "../services/formatDate"
 import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
 import { buyCourse } from "../services/operations/studentFeaturesAPI"
+import { requestCourseAccess } from "../services/operations/courseAccessAPI"
 
 import GetAvgRating from "../utils/avgRating"
 import { ACCOUNT_TYPE } from './../utils/constants';
@@ -188,6 +189,30 @@ function CourseDetails() {
     })
   }
 
+  // Request Access handler for free courses
+  const handleRequestAccess = async () => {
+    if (!courseId) {
+      toast.error("Course information not available")
+      return
+    }
+
+    if (!user) {
+      toast.error("Please login to request access");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await requestCourseAccess({ courseId, requestMessage: "" }, token);
+      if (response) {
+        toast.success("Access request submitted successfully");
+      }
+    } catch (error) {
+      console.error("Error requesting access:", error);
+      toast.error("Failed to submit access request");
+    }
+  };
+
 
 
   return (
@@ -315,12 +340,31 @@ function CourseDetails() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="flex items-center justify-between">
-                <p className="text-3xl font-bold text-richblack-5">₹{price}</p>
-                <div className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
-                  Best Seller
-                </div>
+                {response?.data?.courseDetails?.courseType === 'Free' ? (
+                  <div className="flex items-center gap-3">
+                    <div className="bg-caribbeangreen-200 text-caribbeangreen-800 px-3 py-1 rounded-full text-sm font-bold">
+                      100% OFF
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-3xl font-bold text-richblack-5">₹{price}</p>
+                    <div className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
+                      Best Seller
+                    </div>
+                  </>
+                )}
               </div>
-              {/* Admin Role - Can manage all courses */}
+              
+              {/* Course Type Badge */}
+              <div className={`inline-flex px-4 py-2 rounded-full font-bold text-sm mb-4
+                ${response?.data?.courseDetails?.courseType === 'Free' 
+                  ? "bg-caribbeangreen-200 text-caribbeangreen-800 border border-caribbeangreen-300" 
+                  : "bg-blue-600/90 text-white"} 
+                backdrop-blur-sm shadow-lg`}>
+                {response?.data?.courseDetails?.courseType === 'Free' ? "FREE COURSE" : "PREMIUM COURSE"}
+              </div>
+
               {/* Admin Role - Can manage all courses */}
               {user?.accountType === ACCOUNT_TYPE.ADMIN ? (
                 <motion.button 
@@ -338,7 +382,7 @@ function CourseDetails() {
                 instructor?._id === user?._id ? (
                   <motion.button 
                     className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg"
-                  onClick={() => navigate('/dashboard/my-courses')}
+                    onClick={() => navigate('/dashboard/my-courses')}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     disabled={!courseId}
@@ -351,8 +395,25 @@ function CourseDetails() {
                     <p className="text-xs mt-1">This course is managed by {instructor?.firstName} {instructor?.lastName}</p>
                   </div>
                 )
+              ) :
+              /* Student Role - Check course type for proper flow */
+              response?.data?.courseDetails?.courseType === 'Free' ? (
+                <motion.button 
+                  className="bg-caribbeangreen-300 hover:bg-caribbeangreen-400 text-richblack-900 font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg"
+                  onClick={
+                    user && response?.data?.courseDetails?.studentsEnrolled?.includes(user?._id)
+                      ? () => navigate("/dashboard/enrolled-courses")
+                      : handleRequestAccess
+                  }
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {user && response?.data?.courseDetails?.studentsEnrolled?.includes(user?._id)
+                    ? "Go To Course"
+                    : "Get Free Access"}
+                </motion.button>
               ) : (
-                /* Student Role - Normal buy/request access flow */
+                /* Paid Course - Normal buy/cart flow */
                 <>
                   <motion.button 
                     className="bg-yellow-50 text-richblack-900 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-25 transition-all duration-300 shadow-lg"

@@ -250,6 +250,29 @@ exports.updateUserProfileImage = async (req, res) => {
             });
         }
 
+        // Validate file size (5MB limit for profile images)
+        const MAX_PROFILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+        if (profileImage.size > MAX_PROFILE_SIZE) {
+            return res.status(400).json({
+                success: false,
+                message: 'Profile image must be 5MB or less. Please choose a smaller image.',
+                error: 'FILE_SIZE_EXCEEDED',
+                maxSize: '5MB',
+                currentSize: `${(profileImage.size / (1024 * 1024)).toFixed(2)}MB`
+            });
+        }
+
+        // Validate file type
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(profileImage.mimetype)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid file type. Please upload a JPEG, PNG, GIF, or WebP image.',
+                error: 'INVALID_FILE_TYPE',
+                allowedTypes: ['JPEG', 'PNG', 'GIF', 'WebP']
+            });
+        }
+
         console.log('profileImage = ', profileImage);
 
         // upload image to Supabase
@@ -277,10 +300,26 @@ exports.updateUserProfileImage = async (req, res) => {
     catch (error) {
         console.log('Error while updating user profile image');
         console.log(error);
-        return res.status(500).json({
+
+        // Handle specific upload errors with user-friendly messages
+        let errorMessage = 'Error while updating user profile image';
+        let statusCode = 500;
+
+        if (error.message.includes('File size') || error.message.includes('exceeds limit')) {
+            errorMessage = 'Profile image must be 5MB or less. Please choose a smaller image.';
+            statusCode = 400;
+        } else if (error.message.includes('File type') || error.message.includes('not allowed')) {
+            errorMessage = 'Invalid file type. Please upload a JPEG, PNG, GIF, or WebP image.';
+            statusCode = 400;
+        } else if (error.message.includes('Upload failed') || error.message.includes('storage')) {
+            errorMessage = 'Failed to upload image. Please try again.';
+            statusCode = 500;
+        }
+
+        return res.status(statusCode).json({
             success: false,
             error: error.message,
-            message: 'Error while updating user profile image',
+            message: errorMessage,
         })
     }
 }

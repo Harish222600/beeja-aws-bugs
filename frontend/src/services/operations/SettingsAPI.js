@@ -42,7 +42,24 @@ export function updateUserProfileImage(token, formData) {
       localStorage.setItem("user", JSON.stringify(response.data.data));
     } catch (error) {
       console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error)
-      toast.error("Could Not Update Profile Picture")
+      
+      // Show specific error message from backend if available
+      let errorMessage = "Could Not Update Profile Picture";
+      
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      // Handle specific error types with user-friendly messages
+      if (errorMessage.includes('5MB') || errorMessage.includes('FILE_SIZE_EXCEEDED')) {
+        toast.error("Profile image must be 5MB or less. Please choose a smaller image.");
+      } else if (errorMessage.includes('Invalid file type') || errorMessage.includes('INVALID_FILE_TYPE')) {
+        toast.error("Invalid file type. Please upload a JPEG, PNG, GIF, or WebP image.");
+      } else {
+        toast.error(errorMessage);
+      }
     }
     toast.dismiss(toastId)
   }

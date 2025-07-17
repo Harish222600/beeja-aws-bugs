@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { FiUpload } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux"
+import { toast } from "react-hot-toast"
 
 import { updateUserProfileImage } from "../../../../services/operations/SettingsAPI"
 import IconBtn from "../../../common/IconBtn"
@@ -27,6 +28,22 @@ export default function ChangeProfilePicture() {
     const file = e.target.files[0]
     // console.log(file)
     if (file) {
+      // Validate file size (5MB limit)
+      const MAX_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > MAX_SIZE) {
+        toast.error(`Profile image must be 5MB or less. Your file is ${(file.size / (1024 * 1024)).toFixed(2)}MB.`);
+        e.target.value = ''; // Clear the input
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error('Invalid file type. Please upload a JPEG, PNG, GIF, or WebP image.');
+        e.target.value = ''; // Clear the input
+        return;
+      }
+
       setProfileImage(file)
       previewFile(file)
     }

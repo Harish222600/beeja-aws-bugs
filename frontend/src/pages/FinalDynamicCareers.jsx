@@ -119,15 +119,23 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
       animate={{ opacity: 1, y: 0 }}
       className="fixed inset-0 z-50 overflow-y-auto"
     >
-      <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
         <div className="fixed inset-0 bg-black/50" onClick={onClose}></div>
 
-        <div className="relative bg-richblack-800 rounded-lg w-full max-w-3xl p-6 border border-richblack-700 max-h-[90vh] overflow-y-auto">
-          <h2 className="text-2xl font-bold text-richblack-5 mb-2">Apply for {selectedJob.title}</h2>
-          <p className="text-richblack-300 mb-6">{selectedJob.department} • {selectedJob.location}</p>
+        <div className="relative bg-richblack-800 rounded-lg w-full max-w-4xl mx-2 sm:mx-4 p-4 sm:p-6 border border-richblack-700 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+          {/* Header - Mobile Optimized */}
+          <div className="mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-richblack-5 mb-1 sm:mb-2 leading-tight break-words">
+              Apply for {selectedJob.title}
+            </h2>
+            <p className="text-sm sm:text-base text-richblack-300 break-words">
+              {selectedJob.department} • {selectedJob.location}
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            {/* Form Grid - Single column on mobile, two columns on larger screens */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm font-medium text-richblack-200 mb-2">
                   Full Name *
@@ -138,7 +146,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   value={formData.applicantName}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -152,7 +160,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -166,7 +174,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -180,11 +188,12 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   onChange={handleInputChange}
                   accept=".pdf,.doc,.docx"
                   required
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-richblack-900 hover:file:bg-yellow-100"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 min-h-[44px] touch-manipulation file:mr-2 sm:file:mr-4 file:py-2 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-yellow-50 file:text-richblack-900 hover:file:bg-yellow-100"
                 />
               </div>
 
-              <div className="md:col-span-2">
+              {/* Cover Letter - Full width on all screens */}
+              <div className="lg:col-span-2">
                 <label className="block text-sm font-medium text-richblack-200 mb-2">
                   Cover Letter
                 </label>
@@ -193,7 +202,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   value={formData.coverLetter}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm resize-y min-h-[100px] touch-manipulation"
                   placeholder="Tell us why you're interested in this position..."
                 />
               </div>
@@ -207,7 +216,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   name="experience"
                   value={formData.experience}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -220,7 +229,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   name="portfolio"
                   value={formData.portfolio}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -233,7 +242,7 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   name="linkedinProfile"
                   value={formData.linkedinProfile}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
 
@@ -246,24 +255,25 @@ const ApplicationForm = React.memo(({ selectedJob, onClose, onSubmit }) => {
                   name="expectedSalary"
                   value={formData.expectedSalary}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50"
+                  className="w-full px-3 py-3 sm:py-2 bg-richblack-700 border border-richblack-600 rounded-lg text-richblack-5 focus:outline-none focus:ring-2 focus:ring-yellow-50 text-base sm:text-sm min-h-[44px] touch-manipulation"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-4 pt-6">
+            {/* Action Buttons - Stack on mobile, inline on larger screens */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 pt-4 sm:pt-6">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={submitting}
-                className="px-6 py-2 border border-richblack-600 text-richblack-300 rounded-lg hover:bg-richblack-700 transition-colors disabled:opacity-50"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2 border border-richblack-600 text-richblack-300 rounded-lg hover:bg-richblack-700 transition-colors disabled:opacity-50 font-medium text-base sm:text-sm min-h-[44px] touch-manipulation"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-6 py-2 bg-yellow-50 text-richblack-900 rounded-lg font-medium hover:bg-yellow-100 transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-yellow-50 text-richblack-900 rounded-lg font-medium hover:bg-yellow-100 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 text-base sm:text-sm min-h-[44px] touch-manipulation"
               >
                 {submitting ? (
                   <>
@@ -539,140 +549,65 @@ const FinalDynamicCareers = () => {
               </p>
             </div>
           ) : (
-            <div style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              position: 'relative',
-              zIndex: 50
-            }}>
+            <div className="w-full flex flex-col gap-4 md:gap-6 relative z-50">
               {console.log('Rendering jobs:', jobs)}
               {jobs.map((job, index) => (
-                <div
+                <motion.div
                   key={job._id}
-                  style={{
-                    backgroundColor: '#2C333F',
-                    padding: '32px',
-                    borderRadius: '12px',
-                    border: '2px solid #4B5563',
-                    minHeight: '300px',
-                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                    marginBottom: '24px',
-                    position: 'relative',
-                    zIndex: 100 + index,
-                    display: 'block !important',
-                    visibility: 'visible !important',
-                    opacity: '1 !important',
-                    width: '100%'
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-richblack-800 p-4 sm:p-6 lg:p-8 rounded-xl border-2 border-richblack-600 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-richblack-500 w-full overflow-hidden"
+                  style={{ zIndex: 100 + index }}
                 >
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '24px'
-                  }}>
-                    <div style={{ flex: 1 }}>
-                      <h3 style={{
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        color: '#FFFFFF',
-                        marginBottom: '12px',
-                        lineHeight: '1.2'
-                      }}>
+                  {/* Job Header - Mobile First Layout */}
+                  <div className="flex flex-col gap-4 md:gap-6">
+                    <div className="flex-1 space-y-3 md:space-y-4">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-richblack-5 leading-tight break-words">
                         {job.title || 'Job Title'}
                       </h3>
-                      <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '16px',
-                        fontSize: '14px'
-                      }}>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          backgroundColor: '#374151',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          color: '#E5E7EB'
-                        }}>
-                          <FaUsers style={{ color: '#60A5FA' }} /> {job.department || 'Department'}
+                      
+                      {/* Job Meta - Stack on mobile, wrap on larger screens */}
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm">
+                        <span className="inline-flex items-center gap-2 bg-richblack-700 px-3 py-1.5 rounded-full text-richblack-200 w-fit">
+                          <FaUsers className="text-blue-400 text-xs" /> 
+                          <span className="truncate">{job.department || 'Department'}</span>
                         </span>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          backgroundColor: '#374151',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          color: '#E5E7EB'
-                        }}>
-                          <FaClock style={{ color: '#34D399' }} /> {job.employmentType || 'Full-time'}
+                        <span className="inline-flex items-center gap-2 bg-richblack-700 px-3 py-1.5 rounded-full text-richblack-200 w-fit">
+                          <FaClock className="text-green-400 text-xs" /> 
+                          <span className="truncate">{job.employmentType || 'Full-time'}</span>
                         </span>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          backgroundColor: '#374151',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          color: '#E5E7EB'
-                        }}>
-                          <FaMapMarkerAlt style={{ color: '#F87171' }} /> {job.location || 'Location'}
+                        <span className="inline-flex items-center gap-2 bg-richblack-700 px-3 py-1.5 rounded-full text-richblack-200 w-fit">
+                          <FaMapMarkerAlt className="text-red-400 text-xs" /> 
+                          <span className="truncate">{job.location || 'Location'}</span>
                         </span>
                       </div>
                     </div>
+                    
+                    {/* Apply Button - Full width on mobile */}
                     <button
                       onClick={() => handleApplyClick(job)}
-                      style={{
-                        backgroundColor: '#FEF3C7',
-                        color: '#1F2937',
-                        padding: '12px 24px',
-                        borderRadius: '8px',
-                        fontWeight: '600',
-                        border: 'none',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        transition: 'all 0.3s ease',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                      }}
+                      className="w-full sm:w-auto sm:min-w-[140px] bg-yellow-50 text-richblack-900 px-4 py-3 sm:px-6 sm:py-3 rounded-lg font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2 transition-all duration-300 hover:bg-yellow-100 hover:shadow-md active:scale-95 touch-manipulation min-h-[44px]"
                     >
-                      Apply Now <FaArrowRight />
+                      Apply Now <FaArrowRight className="text-xs sm:text-sm" />
                     </button>
                   </div>
                   
-                  <p style={{
-                    color: '#F3F4F6',
-                    marginTop: '24px',
-                    marginBottom: '24px',
-                    lineHeight: '1.6',
-                    fontSize: '16px'
-                  }}>
+                  {/* Job Description */}
+                  <p className="text-richblack-200 mt-4 mb-4 sm:mt-6 sm:mb-6 leading-relaxed text-sm sm:text-base break-words">
                     {job.description || 'Job description will be displayed here.'}
                   </p>
                   
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {/* Job Details */}
+                  <div className="space-y-4 sm:space-y-6">
                     {job.requirements && job.requirements.length > 0 && (
                       <div>
-                        <h4 style={{
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#FFFFFF',
-                          marginBottom: '12px'
-                        }}>
+                        <h4 className="text-base sm:text-lg font-semibold text-richblack-5 mb-2 sm:mb-3">
                           Key Requirements:
                         </h4>
-                        <ul style={{
-                          listStyleType: 'disc',
-                          paddingLeft: '20px',
-                          color: '#E5E7EB',
-                          lineHeight: '1.6'
-                        }}>
+                        <ul className="list-disc pl-4 sm:pl-5 text-richblack-300 leading-relaxed space-y-1 sm:space-y-2">
                           {job.requirements.map((req, reqIndex) => (
-                            <li key={reqIndex} style={{ marginBottom: '8px' }}>
+                            <li key={reqIndex} className="text-sm sm:text-base break-words">
                               {req}
                             </li>
                           ))}
@@ -682,22 +617,12 @@ const FinalDynamicCareers = () => {
 
                     {job.benefits && job.benefits.length > 0 && (
                       <div>
-                        <h4 style={{
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#FFFFFF',
-                          marginBottom: '12px'
-                        }}>
+                        <h4 className="text-base sm:text-lg font-semibold text-richblack-5 mb-2 sm:mb-3">
                           Benefits:
                         </h4>
-                        <ul style={{
-                          listStyleType: 'disc',
-                          paddingLeft: '20px',
-                          color: '#E5E7EB',
-                          lineHeight: '1.6'
-                        }}>
+                        <ul className="list-disc pl-4 sm:pl-5 text-richblack-300 leading-relaxed space-y-1 sm:space-y-2">
                           {job.benefits.map((benefit, benefitIndex) => (
-                            <li key={benefitIndex} style={{ marginBottom: '8px' }}>
+                            <li key={benefitIndex} className="text-sm sm:text-base break-words">
                               {benefit}
                             </li>
                           ))}
@@ -705,20 +630,14 @@ const FinalDynamicCareers = () => {
                       </div>
                     )}
 
-                    <div style={{
-                      paddingTop: '16px',
-                      borderTop: '1px solid #4B5563',
-                      marginTop: '16px'
-                    }}>
-                      <p style={{
-                        fontSize: '14px',
-                        color: '#D1D5DB'
-                      }}>
-                        <strong style={{ color: '#FEF3C7' }}>Application Deadline:</strong> {formatDate(job.applicationDeadline)}
+                    {/* Application Deadline */}
+                    <div className="pt-3 sm:pt-4 border-t border-richblack-600 mt-4 sm:mt-6">
+                      <p className="text-xs sm:text-sm text-richblack-400">
+                        <span className="text-yellow-50 font-semibold">Application Deadline:</span> {formatDate(job.applicationDeadline)}
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
