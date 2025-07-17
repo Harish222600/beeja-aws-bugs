@@ -71,7 +71,7 @@ const Home = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="relative z-0"
       >
         <BackgroundEffect />
@@ -83,7 +83,7 @@ const Home = () => {
         <div id='home-welcome' className='relative min-h-[350px] sm:min-h-[400px] justify-center mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white px-4 py-6 sm:py-8 md:py-12'>
 
           <motion.div
-            variants={fadeIn('left', 0.1)}
+            variants={fadeIn('left', 0.05)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.1 }}
@@ -95,7 +95,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn('right', 0.1)}
+            variants={fadeIn('right', 0.05)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.1 }}
@@ -105,15 +105,15 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn('up', 0.3)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
             className='flex flex-col sm:flex-row gap-4 sm:gap-7 mt-6 sm:mt-8 w-full justify-center items-center max-w-md sm:max-w-none'
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
+              whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
               className='w-full sm:w-auto'
             >
               <CTAButton active={true} linkto={"/signup"}>
@@ -121,8 +121,8 @@ const Home = () => {
               </CTAButton>
             </motion.div>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
+              whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
               className='w-full sm:w-auto'
             >
               <CTAButton active={false} linkto={"/login"}>
@@ -135,7 +135,7 @@ const Home = () => {
         </div>
 
         <motion.div
-          variants={fadeIn('up', 0.2)}
+          variants={fadeIn('up', 0.1)}
           initial='hidden'
           whileInView={'show'}
           viewport={{ once: false, amount: 0.2 }}
@@ -165,7 +165,7 @@ const Home = () => {
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className='count-container'
           >
             <div className="increase-count">
@@ -185,7 +185,7 @@ const Home = () => {
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.15 }}
             className='count-container'
           >
             <div className="increase-count">
@@ -204,7 +204,7 @@ const Home = () => {
         {/* Code Blocks */}
         <div className='relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between px-4 sm:px-6 lg:px-0'>
           <motion.div
-            variants={fadeIn('up', 0.2)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -232,7 +232,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn('up', 0.3)}
+            variants={fadeIn('up', 0.15)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -252,7 +252,7 @@ const Home = () => {
 
           {/* Team Slider Section */}
           <motion.div
-            variants={fadeIn('up', 0.1)}
+            variants={fadeIn('up', 0.05)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.1 }}
@@ -266,6 +266,7 @@ const Home = () => {
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className='px-4 sm:px-6 lg:px-0'
           >
             <TeamSlider />
@@ -274,7 +275,7 @@ const Home = () => {
           <div className="w-full py-8 sm:py-12">
             {/* Section Header */}
             <motion.div
-              variants={fadeIn('up', 0.1)}
+              variants={fadeIn('up', 0.05)}
               initial='hidden'
               whileInView={'show'}
               viewport={{ once: false, amount: 0.1 }}
@@ -295,7 +296,7 @@ const Home = () => {
 
           {/* Featured Courses Section */}
           <motion.div
-            variants={fadeIn('up', 0.2)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -305,7 +306,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn('up', 0.2)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -322,7 +323,7 @@ const Home = () => {
           <div className='mx-auto w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-7'>
             <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 mb-8 mt-[40px] sm:mt-[60px] px-4 sm:px-6 lg:px-0'>
               <motion.div
-                variants={fadeIn('right', 0.2)}
+                variants={fadeIn('right', 0.1)}
                 initial='hidden'
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.2 }}
@@ -332,7 +333,7 @@ const Home = () => {
               </motion.div>
 
               <motion.div
-                variants={fadeIn('left', 0.2)}
+                variants={fadeIn('left', 0.1)}
                 initial='hidden'
                 whileInView={'show'}
                 viewport={{ once: false, amount: 0.2 }}
@@ -342,8 +343,8 @@ const Home = () => {
                   The modern BeejaAcademy dictates its own terms. Today, to be a competitive specialist requires more than professional skills.
                 </div>
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03, transition: { duration: 0.15 } }}
+                  whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
                   className='w-full sm:w-auto'
                 >
                   <CTAButton active={true} linkto={"/signup"}>
@@ -356,7 +357,7 @@ const Home = () => {
             </div>
 
             <motion.div
-              variants={fadeIn('up', 0.2)}
+              variants={fadeIn('up', 0.1)}
               initial='hidden'
               whileInView={'show'}
               viewport={{ once: false, amount: 0.2 }}
@@ -365,7 +366,7 @@ const Home = () => {
             </motion.div>
 
             <motion.div
-              variants={fadeIn('up', 0.2)}
+              variants={fadeIn('up', 0.1)}
               initial='hidden'
               whileInView={'show'}
               viewport={{ once: false, amount: 0.2 }}
@@ -378,7 +379,7 @@ const Home = () => {
         {/* Section 3 */}
         <div className='mt-6 sm:mt-8 w-11/12 mx-auto max-w-maxContent flex-col items-center justify-between gap-6 bg-richblack-900 text-white px-4 sm:px-6 lg:px-0'>
           <motion.div
-            variants={fadeIn('up', 0.2)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -387,7 +388,7 @@ const Home = () => {
           </motion.div>
 
           <motion.h1
-            variants={fadeIn('up', 0.2)}
+            variants={fadeIn('up', 0.1)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
@@ -405,7 +406,7 @@ const Home = () => {
           </motion.h1>
 
           <motion.div
-            variants={fadeIn('up', 0.3)}
+            variants={fadeIn('up', 0.15)}
             initial='hidden'
             whileInView={'show'}
             viewport={{ once: false, amount: 0.2 }}
