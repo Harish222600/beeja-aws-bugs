@@ -22,6 +22,7 @@ const UserManagement = () => {
   const [deletingUserId, setDeletingUserId] = useState(null);
   const [togglingUserId, setTogglingUserId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all"); // all, active, inactive
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -58,13 +59,21 @@ const UserManagement = () => {
     }
   };
 
-  // Filter users based on search term
-  const filteredUsers = users.filter(user => 
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.accountType.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter users based on search term and status filter
+  const filteredUsers = users.filter(user => {
+    // First apply search filter
+    const matchesSearch = user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.accountType.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Then apply status filter
+    const matchesStatus = statusFilter === "all" || 
+      (statusFilter === "active" && user.active) ||
+      (statusFilter === "inactive" && !user.active);
+    
+    return matchesSearch && matchesStatus;
+  });
 
   const loadUsers = useCallback(async (mounted = true) => {
     try {
@@ -446,11 +455,14 @@ const UserManagement = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-richblack-700 rounded-xl p-4 flex items-center justify-between">
               <div>
                 <p className="text-sm text-richblack-300">Total Users</p>
                 <p className="text-2xl font-bold text-richblack-5">{users.length}</p>
+                <p className="text-xs text-richblack-400">
+                  {users.filter(u => u.active).length} active, {users.filter(u => !u.active).length} inactive
+                </p>
               </div>
               <FaUser className="text-yellow-50 text-2xl" />
             </div>
@@ -459,6 +471,9 @@ const UserManagement = () => {
                 <p className="text-sm text-richblack-300">Students</p>
                 <p className="text-2xl font-bold text-richblack-5">
                   {users.filter(u => u.accountType === 'Student').length}
+                </p>
+                <p className="text-xs text-richblack-400">
+                  {users.filter(u => u.accountType === 'Student' && u.active).length} active
                 </p>
               </div>
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
@@ -471,6 +486,9 @@ const UserManagement = () => {
                 <p className="text-2xl font-bold text-richblack-5">
                   {users.filter(u => u.accountType === 'Instructor').length}
                 </p>
+                <p className="text-xs text-richblack-400">
+                  {users.filter(u => u.accountType === 'Instructor' && u.active).length} active
+                </p>
               </div>
               <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
                 <FaUser className="text-white text-xl" />
@@ -481,6 +499,9 @@ const UserManagement = () => {
                 <p className="text-sm text-richblack-300">Admins</p>
                 <p className="text-2xl font-bold text-richblack-5">
                   {users.filter(u => u.accountType === 'Admin').length}
+                </p>
+                <p className="text-xs text-richblack-400">
+                  {users.filter(u => u.accountType === 'Admin' && u.active).length} active
                 </p>
               </div>
               <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center">
@@ -531,16 +552,32 @@ const UserManagement = () => {
             </button>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search users by name, email, or role..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-richblack-700 rounded-lg pl-10 pr-4 py-2 text-richblack-5"
-            />
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-richblack-400" />
+          {/* Search and Filter Bar */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Search Bar */}
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search users by name, email, or role..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-richblack-700 rounded-lg pl-10 pr-4 py-2 text-richblack-5"
+              />
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-richblack-400" />
+            </div>
+            
+            {/* Status Filter */}
+            <div className="flex-shrink-0">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="bg-richblack-700 rounded-lg px-4 py-2 text-richblack-5 border border-richblack-600 focus:border-yellow-50 focus:outline-none"
+              >
+                <option value="all">All Users</option>
+                <option value="active">Active Only</option>
+                <option value="inactive">Inactive Only</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

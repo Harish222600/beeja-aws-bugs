@@ -66,8 +66,9 @@ exports.toggleUserStatus = async (req, res) => {
 // ================ GET ALL USERS ================
 exports.getAllUsers = async (req, res) => {
     try {
-        // Only fetch active users (exclude users that have been moved to recycle bin)
-        const users = await User.find({ active: true })
+        // Fetch all users (both active and inactive) - don't filter by active status
+        // This allows admins to see and manage all users regardless of their status
+        const users = await User.find({})
             .populate('additionalDetails')
             .select('-password')
             .sort({ createdAt: -1 });
@@ -636,11 +637,20 @@ exports.setCourseType = async (req, res) => {
 // ================ GET ANALYTICS DATA ================
 exports.getAnalytics = async (req, res) => {
     try {
-        // Only count active users (exclude users that have been moved to recycle bin)
-        const totalUsers = await User.countDocuments({ active: true });
-        const studentCount = await User.countDocuments({ accountType: 'Student', active: true });
-        const instructorCount = await User.countDocuments({ accountType: 'Instructor', active: true });
-        const adminCount = await User.countDocuments({ accountType: 'Admin', active: true });
+        // Count all users (both active and inactive) for total count
+        const totalUsers = await User.countDocuments({});
+        const activeUsers = await User.countDocuments({ active: true });
+        const inactiveUsers = await User.countDocuments({ active: false });
+        
+        // Count by account type (both active and inactive)
+        const studentCount = await User.countDocuments({ accountType: 'Student' });
+        const instructorCount = await User.countDocuments({ accountType: 'Instructor' });
+        const adminCount = await User.countDocuments({ accountType: 'Admin' });
+        
+        // Count active users by account type
+        const activeStudentCount = await User.countDocuments({ accountType: 'Student', active: true });
+        const activeInstructorCount = await User.countDocuments({ accountType: 'Instructor', active: true });
+        const activeAdminCount = await User.countDocuments({ accountType: 'Admin', active: true });
 
         const totalCourses = await Course.countDocuments();
         const publishedCourses = await Course.countDocuments({ status: 'Published' });
@@ -651,8 +661,7 @@ exports.getAnalytics = async (req, res) => {
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
         const recentRegistrations = await User.countDocuments({
-            createdAt: { $gte: thirtyDaysAgo },
-            active: true
+            createdAt: { $gte: thirtyDaysAgo }
         });
 
         // Get pending access requests count
@@ -689,10 +698,9 @@ exports.getAnalytics = async (req, res) => {
         
         // For recent logins, we'll get recently created users as a proxy since we don't track login times
         const recentLogins = await User.find({
-            createdAt: { $gte: sevenDaysAgoForUsers },
-            active: true
+            createdAt: { $gte: sevenDaysAgoForUsers }
         })
-        .select('firstName lastName email accountType createdAt')
+        .select('firstName lastName email accountType createdAt active')
         .sort({ createdAt: -1 })
         .limit(10);
 
@@ -700,10 +708,9 @@ exports.getAnalytics = async (req, res) => {
 
         // Get active users (users created in last 30 days)
         const activeLogins = await User.find({
-            createdAt: { $gte: thirtyDaysAgo },
-            active: true
+            createdAt: { $gte: thirtyDaysAgo }
         })
-        .select('firstName lastName email accountType createdAt')
+        .select('firstName lastName email accountType createdAt active')
         .sort({ createdAt: -1 })
         .limit(10);
 
@@ -712,9 +719,14 @@ exports.getAnalytics = async (req, res) => {
             analytics: {
                 users: {
                     total: totalUsers,
+                    active: activeUsers,
+                    inactive: inactiveUsers,
                     students: studentCount,
                     instructors: instructorCount,
                     admins: adminCount,
+                    activeStudents: activeStudentCount,
+                    activeInstructors: activeInstructorCount,
+                    activeAdmins: activeAdminCount,
                     recentRegistrations
                 },
                 courses: {
