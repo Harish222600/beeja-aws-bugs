@@ -3,7 +3,8 @@ FROM node:18 as builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production
+# Install all dependencies including devDependencies for build
+RUN npm ci
 
 COPY . .
 

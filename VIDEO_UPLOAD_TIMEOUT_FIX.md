@@ -69,9 +69,17 @@ This ensures proper handling of forwarded headers and client IP detection.
 
 **Improvements:**
 - Multi-stage build for optimization
+- Fixed build dependencies (install all deps including devDependencies)
 - Volume support for nginx integration
 - Security enhancements with non-root user
 - Better health checks
+
+**Critical Fix:**
+```dockerfile
+# Install all dependencies including devDependencies for build
+RUN npm ci
+```
+This ensures `vite` and other build tools are available during the build process.
 
 ### 5. AWS Load Balancer Configuration Guide
 
