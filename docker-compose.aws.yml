@@ -1,0 +1,139 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: lms-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: lms
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - lms-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - BUILDPLATFORM=linux/amd64
+    platform: linux/amd64
+    container_name: lms-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    networks:
+      - lms-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.25'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.aws
+      args:
+        - BUILDPLATFORM=linux/amd64
+    platform: linux/amd64
+    container_name: lms-backend
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+      - MONGODB_URL=mongodb://mongodb:27017/lms
+      - FRONTEND_URL=http://localhost:5173
+      - SHARP_IGNORE_GLOBAL_LIBVIPS=1
+      - SHARP_FORCE_GLOBAL_LIBVIPS=false
+      - SEED_DATABASE=true
+      # AWS-specific optimizations
+      - AWS_DEPLOYMENT=true
+      - MAX_UPLOAD_SIZE=2147483648
+      - CHUNK_SIZE=10485760
+      - MAX_CONCURRENT_CHUNKS=2
+      - UPLOAD_TIMEOUT=1800000
+      - CHUNK_TIMEOUT=300000
+      - SUPABASE_TIMEOUT=600000
+      # Memory optimization
+      - NODE_OPTIONS=--max-old-space-size=2048
+      - UV_THREADPOOL_SIZE=16
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend_uploads:/app/uploads
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - lms-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5001/', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 120s
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+          cpus: '1.0'
+        reservations:
+          memory: 1.5G
+          cpus: '0.5'
+    # Increase container limits for large uploads
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    # Add tmpfs for temporary file processing
+    tmpfs:
+      - /tmp:size=1G,mode=1777
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+  backend_uploads:
+    driver: local
+
+networks:
+  lms-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1500
