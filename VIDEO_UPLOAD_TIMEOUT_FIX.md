@@ -111,13 +111,21 @@ aws elbv2 modify-load-balancer-attributes \
 ## 🚀 Deployment Instructions
 
 ### Step 1: Deploy the Application
+
+**Important:** Use the AWS-optimized Docker Compose file:
+
 ```bash
 # Make deployment script executable (Linux/Mac)
 chmod +x deploy-aws.sh
 
-# Run deployment
+# Run deployment with AWS-optimized configuration
 ./deploy-aws.sh
+
+# OR manually deploy with AWS configuration
+docker-compose -f docker-compose.aws.yml up --build -d
 ```
+
+**Note:** Do NOT use the regular `docker-compose.yml` as it doesn't include the nginx reverse proxy configuration needed for the fix.
 
 ### Step 2: Configure AWS Load Balancer
 ```bash

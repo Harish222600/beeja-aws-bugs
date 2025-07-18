@@ -28,11 +28,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Create volume mount point for sharing with reverse proxy
 VOLUME ["/usr/share/nginx/html"]
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nginx && \
-    adduser -S nginx -u 1001 -G nginx
-
-# Change ownership of nginx directories
+# Change ownership of nginx directories (nginx user already exists in base image)
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
