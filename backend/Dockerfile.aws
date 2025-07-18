@@ -52,6 +52,9 @@ COPY . .
 RUN mkdir -p /app/uploads /app/temp && \
     chmod 755 /app/uploads /app/temp
 
+# Install PM2 globally before switching to non-root user
+RUN npm install -g pm2
+
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
@@ -66,9 +69,6 @@ EXPOSE 5001
 # Enhanced health check for AWS
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=5 \
     CMD curl -f http://localhost:5001/health || exit 1
-
-# Use PM2 for production process management
-RUN npm install -g pm2
 
 # Create PM2 ecosystem file
 COPY --chown=nodejs:nodejs ecosystem.config.js ./
