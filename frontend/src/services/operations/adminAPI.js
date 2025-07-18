@@ -31,7 +31,7 @@ const {
 } = courseEndpoints
 
 
-// ================ Get All Users ================
+//   == Get All Users   ==
 export const getAllUsers = async (token) => {
   let result = []
   const toastId = toast.loading("Loading users...")
@@ -81,7 +81,7 @@ export const getAllUsers = async (token) => {
   return result
 }
 
-// ================ Create User ================
+//   == Create User   ==
 export const createUser = async (data, token) => {
   const toastId = toast.loading("Creating user...")
   let result = null
@@ -127,7 +127,7 @@ export const createUser = async (data, token) => {
   return result
 }
 
-// ================ Update User ================
+//   == Update User   ==
 export const updateUser = async (userId, data, token) => {
   const toastId = toast.loading("Updating user...")
   let result = null
@@ -179,7 +179,7 @@ export const updateUser = async (userId, data, token) => {
   return result
 }
 
-// ================ Delete User ================
+//   == Delete User   ==
 export const deleteUser = async (userId, token) => {
   const toastId = toast.loading("Deleting user...")
   let result = false
@@ -223,7 +223,7 @@ export const deleteUser = async (userId, token) => {
   return result
 }
 
-// ================ Toggle User Status ================
+//   == Toggle User Status   ==
 export const toggleUserStatus = async (userId, token) => {
   const toastId = toast.loading("Updating user status...")
   let result = null
@@ -272,7 +272,7 @@ export const toggleUserStatus = async (userId, token) => {
   return result
 }
 
-// ================ Get All Courses ================
+//   == Get All Courses   ==
 export const getAllCourses = async (token) => {
   let result = []
 
@@ -311,7 +311,7 @@ export const getAllCourses = async (token) => {
   return { courses: result }
 }
 
-// ================ Approve Course ================
+//   == Approve Course   ==
 export const approveCourse = async (courseId, token) => {
   const toastId = toast.loading("Approving course...")
   let result = null
@@ -359,7 +359,7 @@ export const approveCourse = async (courseId, token) => {
   return result
 }
 
-// ================ Delete Course ================
+//   == Delete Course   ==
 export const deleteCourse = async (courseId, token) => {
   const toastId = toast.loading("Deleting course...")
   let result = false
@@ -403,7 +403,7 @@ export const deleteCourse = async (courseId, token) => {
   return result
 }
 
-// ================ Toggle Course Visibility ================
+//   == Toggle Course Visibility   ==
 export const toggleCourseVisibility = async (courseId, token) => {
   const toastId = toast.loading("Updating course visibility...")
   let result = null
@@ -450,7 +450,7 @@ export const toggleCourseVisibility = async (courseId, token) => {
   return result
 }
 
-// ================ Get All Instructors ================
+//   == Get All Instructors   ==
 export const getAllInstructors = async (token) => {
   let result = []
   const toastId = toast.loading("Loading instructors...")
@@ -491,7 +491,7 @@ export const getAllInstructors = async (token) => {
   return result
 }
 
-// ================ Create Course As Admin ================
+//   == Create Course As Admin   ==
 export const createCourseAsAdmin = async (formData, token) => {
   const toastId = toast.loading("Creating course...")
   let result = null
@@ -540,7 +540,7 @@ export const createCourseAsAdmin = async (formData, token) => {
   return result
 }
 
-// ================ Get Analytics ================
+//   == Get Analytics   ==
 export const getAnalytics = async (token) => {
   let result = null
   const toastId = toast.loading("Loading analytics...")
@@ -594,7 +594,7 @@ export const getAnalytics = async (token) => {
   return result
 }
 
-// ================ Get Students By Course ================
+//   == Get Students By Course   ==
 export const getStudentsByCourse = async (courseId, token) => {
   let result = []
   const toastId = toast.loading("Loading students...")
@@ -619,7 +619,7 @@ export const getStudentsByCourse = async (courseId, token) => {
   return result
 }
 
-// ================ Get Student Progress ================
+//   == Get Student Progress   ==
 export const getStudentProgress = async (courseId, studentId, token) => {
   let result = null
   const toastId = toast.loading("Loading progress...")
@@ -647,7 +647,7 @@ export const getStudentProgress = async (courseId, studentId, token) => {
   return result
 }
 
-// ================ Set Course Type ================
+//   == Set Course Type   ==
 export const setCourseType = async (courseId, courseType, token) => {
   const toastId = toast.loading("Updating course type...")
   let result = null
@@ -698,7 +698,7 @@ export const setCourseType = async (courseId, courseType, token) => {
   return result
 }
 
-// ================ Get All Reviews for Admin ================
+//   == Get All Reviews for Admin   ==
 export const getAllReviewsForAdmin = async (token) => {
   let result = []
   const toastId = toast.loading("Loading reviews...")
@@ -740,7 +740,7 @@ export const getAllReviewsForAdmin = async (token) => {
   return result
 }
 
-// ================ Toggle Review Selection ================
+//   == Toggle Review Selection   ==
 export const toggleReviewSelection = async (reviewId, token) => {
   const toastId = toast.loading("Updating review selection...")
   let result = null
@@ -788,7 +788,7 @@ export const toggleReviewSelection = async (reviewId, token) => {
   return result
 }
 
-// ================ Bulk Update Review Selection ================
+//   == Bulk Update Review Selection   ==
 export const bulkUpdateReviewSelection = async (reviewIds, isSelected, token) => {
   const toastId = toast.loading("Updating review selections...")
   let result = null
@@ -841,7 +841,7 @@ export const bulkUpdateReviewSelection = async (reviewIds, isSelected, token) =>
   return result
 }
 
-// ================ Delete Review ================
+//   == Delete Review   ==
 export const deleteReview = async (reviewId, token) => {
   const toastId = toast.loading("Deleting review...")
   let result = false
@@ -885,7 +885,7 @@ export const deleteReview = async (reviewId, token) => {
   return result
 }
 
-// ================ Delete Category ================
+//   == Delete Category   ==
 export const deleteCategory = async (categoryId, token) => {
   const toastId = toast.loading("Deleting category...")
   let result = false
@@ -930,7 +930,7 @@ export const deleteCategory = async (categoryId, token) => {
   return result
 }
 
-// ================ Get Notification Counts ================
+//   == Get Notification Counts   ==
 export const getNotificationCounts = async (token) => {
   let result = null
 
@@ -968,7 +968,7 @@ export const getNotificationCounts = async (token) => {
   return result
 }
 
-// ================ Mark Section As Seen ================
+//   == Mark Section As Seen   ==
 export const markSectionAsSeen = async (sectionId, token) => {
   let result = false
 

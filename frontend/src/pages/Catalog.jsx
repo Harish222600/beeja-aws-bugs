@@ -56,8 +56,8 @@ function Catalog() {
         }
     }, [categoryId])
 
-    // console.log('======================================= ', catalogPageData)
-    // console.log('categoryId ==================================== ', categoryId)
+    // console.log('     ==== ', catalogPageData)
+    // console.log('categoryId      = ', categoryId)
 
     if (loading) {
         return (

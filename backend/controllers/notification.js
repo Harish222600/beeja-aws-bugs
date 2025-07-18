@@ -80,7 +80,6 @@ exports.createEnhancedNotification = async (notificationData) => {
             isRead: false
         });
 
-        console.log(`Created notification: ${notification._id} for ${recipientType}`);
         return notification;
     } catch (error) {
         console.error('Error creating enhanced notification:', error);
@@ -745,7 +744,6 @@ exports.createNewCourseAnnouncementToAll = async (courseId, instructorId) => {
         }));
 
         await Notification.insertMany(notifications);
-        console.log(`Created ${notifications.length} new course announcement notifications`);
     } catch (error) {
         console.error('Error creating new course announcement notifications:', error);
     }

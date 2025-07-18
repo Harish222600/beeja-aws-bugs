@@ -27,7 +27,7 @@ const getSuggestionForError = (statusCode, fileSize) => {
     }
 };
 
-// ================ Update SubSection ================
+//   == Update SubSection   ==
 exports.updateSubSection = async (req, res) => {
     try {
         const { sectionId, subSectionId, title, description, questions } = req.body;
@@ -225,7 +225,7 @@ exports.updateSubSection = async (req, res) => {
 };
 
 
-// ================ create SubSection ================
+//   == create SubSection   ==
 exports.createSubSection = async (req, res) => {
     try {
         // extract data
@@ -459,7 +459,7 @@ exports.createSubSection = async (req, res) => {
     }
 }
 
-// ================ Delete SubSection ================
+//   == Delete SubSection   ==
 exports.deleteSubSection = async (req, res) => {
     try {
         const { subSectionId, sectionId } = req.body

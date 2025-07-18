@@ -18,14 +18,14 @@ const {
 // Multer middleware for handling file uploads
 const { upload } = require('../middleware/multer');
 
-// ================ STUDENT ROUTES ================
+//   == STUDENT ROUTES   ==
 router.post('/initiate', auth, isStudent, initiateChat);
 router.get('/student/chats', auth, isStudent, getStudentChats);
 
-// ================ INSTRUCTOR ROUTES ================
+//   == INSTRUCTOR ROUTES   ==
 router.get('/instructor/chats', auth, isInstructor, getInstructorChats);
 
-// ================ ADMIN ROUTES ================
+//   == ADMIN ROUTES   ==
 router.get('/admin/chats', auth, isAdmin, getAllChats);
 router.patch('/admin/archive/:chatId', auth, isAdmin, archiveChat);
 router.patch('/admin/unarchive/:chatId', auth, isAdmin, require('../controllers/chat').unarchiveChat);
@@ -34,7 +34,7 @@ router.patch('/admin/unflag/:chatId', auth, isAdmin, require('../controllers/cha
 router.delete('/admin/delete/:chatId', auth, isAdmin, deleteChat);
 router.patch('/admin/hide-message/:messageId', auth, isAdmin, hideMessage);
 
-// ================ COMMON ROUTES ================
+//   == COMMON ROUTES   ==
 // Send message (with optional image upload)
 router.post('/message', auth, upload.single('image'), sendMessage);
 

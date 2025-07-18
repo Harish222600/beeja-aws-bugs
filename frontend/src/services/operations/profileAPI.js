@@ -8,7 +8,7 @@ import { logout } from "./authAPI"
 const { GET_USER_DETAILS_API, GET_USER_ENROLLED_COURSES_API, GET_INSTRUCTOR_DATA_API } = profileEndpoints
 
 
-// ================ get User Details  ================
+//   == get User Details    ==
 export function getUserDetails(token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
@@ -34,7 +34,7 @@ export function getUserDetails(token, navigate) {
   }
 }
 
-// ================ get User Enrolled Courses  ================
+//   == get User Enrolled Courses    ==
 export async function getUserEnrolledCourses(token) {
   const toastId = toast.loading("Loading your courses...")
   let result = []
@@ -62,7 +62,7 @@ export async function getUserEnrolledCourses(token) {
   return result
 }
 
-// ================ get Instructor Data  ================
+//   == get Instructor Data    ==
 export async function getInstructorData(token) {
   // const toastId = toast.loading("Loading...")
   let result = []

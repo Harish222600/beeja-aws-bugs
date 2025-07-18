@@ -13,7 +13,7 @@ const {
   VALIDATE_SECTION_ACCESS_API,
 } = quizEndpoints
 
-// ================ Get All Quizzes ================
+//   == Get All Quizzes   ==
 export const getAllQuizzes = async (token) => {
   let result = []
   try {
@@ -33,7 +33,7 @@ export const getAllQuizzes = async (token) => {
   return result
 }
 
-// ================ Get Quiz by ID ================
+//   == Get Quiz by ID   ==
 export const getQuizById = async (quizId, token) => {
   let result = null
   try {
@@ -52,7 +52,7 @@ export const getQuizById = async (quizId, token) => {
   return result
 }
 
-// ================ Create Quiz ================
+//   == Create Quiz   ==
 export const createQuiz = async (data, token) => {
   let result = null
   const toastId = toast.loading("Creating Quiz...")
@@ -74,7 +74,7 @@ export const createQuiz = async (data, token) => {
   return result
 }
 
-// ================ Update Quiz ================
+//   == Update Quiz   ==
 export const updateQuiz = async (quizId, data, token) => {
   let result = null
   const toastId = toast.loading("Updating Quiz...")
@@ -96,7 +96,7 @@ export const updateQuiz = async (quizId, data, token) => {
   return result
 }
 
-// ================ Submit Quiz ================
+//   == Submit Quiz   ==
 export const submitQuiz = async (data, token) => {
   let result = null
   const toastId = toast.loading(data.timerExpired ? "Time's up! Submitting Quiz..." : "Submitting Quiz...")
@@ -135,7 +135,7 @@ export const submitQuiz = async (data, token) => {
   return result
 }
 
-// ================ Get Quiz Results ================
+//   == Get Quiz Results   ==
 export const getQuizResults = async (quizId, token) => {
   let result = null
   try {
@@ -162,7 +162,7 @@ export const getQuizResults = async (quizId, token) => {
   return result
 }
 
-// ================ Get Quiz Status ================
+//   == Get Quiz Status   ==
 export const getQuizStatus = async (quizId, token) => {
   let result = null
   try {
@@ -182,7 +182,7 @@ export const getQuizStatus = async (quizId, token) => {
   return result
 }
 
-// ================ Validate Section Access ================
+//   == Validate Section Access   ==
 export const validateSectionAccess = async (sectionId, token) => {
   let result = null
   try {

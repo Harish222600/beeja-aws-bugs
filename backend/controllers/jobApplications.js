@@ -5,7 +5,7 @@ const { generateSignedUrl: generateSupabaseSignedUrl } = require('../utils/supab
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-// ================ SUBMIT JOB APPLICATION ================
+//   == SUBMIT JOB APPLICATION   ==
 exports.submitApplication = async (req, res) => {
     try {
         const {
@@ -175,7 +175,7 @@ exports.submitApplication = async (req, res) => {
     }
 };
 
-// ================ GET APPLICATION BY ID ================
+//   == GET APPLICATION BY ID   ==
 exports.getApplicationById = async (req, res) => {
     try {
         const { applicationId } = req.params;
@@ -213,7 +213,7 @@ exports.getApplicationById = async (req, res) => {
     }
 };
 
-// ================ DELETE APPLICATION ================
+//   == DELETE APPLICATION   ==
 exports.deleteApplication = async (req, res) => {
     try {
         const { applicationId } = req.params;
@@ -255,7 +255,7 @@ exports.deleteApplication = async (req, res) => {
     }
 };
 
-// ================ GET APPLICATIONS BY EMAIL ================
+//   == GET APPLICATIONS BY EMAIL   ==
 exports.getApplicationsByEmail = async (req, res) => {
     try {
         const { email } = req.params;
@@ -288,7 +288,7 @@ exports.getApplicationsByEmail = async (req, res) => {
     }
 };
 
-// ================ BULK UPDATE APPLICATION STATUS ================
+//   == BULK UPDATE APPLICATION STATUS   ==
 exports.bulkUpdateApplicationStatus = async (req, res) => {
     try {
         const { applicationIds, status, notes } = req.body;
@@ -346,7 +346,7 @@ exports.bulkUpdateApplicationStatus = async (req, res) => {
     }
 };
 
-// ================ GET APPLICATION STATISTICS ================
+//   == GET APPLICATION STATISTICS   ==
 exports.getApplicationStatistics = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -428,7 +428,7 @@ exports.getApplicationStatistics = async (req, res) => {
     }
 };
 
-// ================ DOWNLOAD RESUME ================
+//   == DOWNLOAD RESUME   ==
 exports.downloadResume = async (req, res) => {
     try {
         const { applicationId } = req.params;

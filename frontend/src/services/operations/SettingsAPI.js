@@ -14,7 +14,7 @@ const {
 
 
 
-// ================ update User Profile Image  ================
+//   == update User Profile Image    ==
 export function updateUserProfileImage(token, formData) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
@@ -65,7 +65,7 @@ export function updateUserProfileImage(token, formData) {
   }
 }
 
-// ================ update Profile  ================
+//   == update Profile    ==
 export function updateProfile(token, formData) {
   return async (dispatch) => {
     // console.log('This is formData for updated profile -> ', formData)
@@ -98,7 +98,7 @@ export function updateProfile(token, formData) {
 }
 
 
-// ================ change Password  ================
+//   == change Password    ==
 export async function changePassword(token, formData) {
   const toastId = toast.loading("Loading...")
   try {
@@ -118,7 +118,7 @@ export async function changePassword(token, formData) {
   toast.dismiss(toastId)
 }
 
-// ================ delete Profile ================
+//   == delete Profile   ==
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")

@@ -22,7 +22,7 @@ function calculateAverageRating(ratingAndReviews) {
     };
 }
 
-// ================ delete Category ================
+//   == delete Category   ==
 exports.deleteCategory = async (req, res) => {
     try {
         const { categoryId } = req.body;
@@ -105,7 +105,7 @@ exports.deleteCategory = async (req, res) => {
     }
 }
 
-// ================ create Category ================
+//   == create Category   ==
 // Update Category
 exports.updateCategory = async (req, res) => {
     try {
@@ -210,7 +210,7 @@ exports.createCategory = async (req, res) => {
 }
 
 
-// ================ get All Category ================
+//   == get All Category   ==
 exports.showAllCategories = async (req, res) => {
     try {
         console.log('Fetching all categories from database...');

@@ -116,7 +116,6 @@ exports.answerFaq = async (req, res) => {
                 emailContent
             );
             
-            console.log('FAQ answer notification email sent successfully');
         } catch (emailError) {
             console.error('Error sending FAQ answer notification:', emailError);
             // Don't return error response here, as the FAQ was successfully answered

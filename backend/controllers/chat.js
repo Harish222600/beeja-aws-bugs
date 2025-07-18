@@ -5,7 +5,7 @@ const User = require('../models/user');
 const Notification = require('../models/notification');
 const { uploadImageToSupabase } = require('../utils/supabaseUploader');
 
-// ================ STUDENT FUNCTIONS ================
+//   == STUDENT FUNCTIONS   ==
 
 // Initiate or get existing chat with instructor
 exports.initiateChat = async (req, res) => {
@@ -93,7 +93,6 @@ exports.initiateChat = async (req, res) => {
                     chatId: chat._id,
                     notification: notification
                 });
-                console.log(`New chat notification emitted to instructor ${course.instructor._id}`);
             }
         }
 
@@ -158,7 +157,7 @@ exports.getStudentChats = async (req, res) => {
     }
 };
 
-// ================ INSTRUCTOR FUNCTIONS ================
+//   == INSTRUCTOR FUNCTIONS   ==
 
 // Get instructor's chats
 exports.getInstructorChats = async (req, res) => {
@@ -208,7 +207,7 @@ exports.getInstructorChats = async (req, res) => {
     }
 };
 
-// ================ ADMIN FUNCTIONS ================
+//   == ADMIN FUNCTIONS   ==
 
 // Get all chats for admin
 exports.getAllChats = async (req, res) => {
@@ -464,7 +463,7 @@ exports.deleteChat = async (req, res) => {
     }
 };
 
-// ================ MESSAGE FUNCTIONS ================
+//   == MESSAGE FUNCTIONS   ==
 
 // Send message
 exports.sendMessage = async (req, res) => {

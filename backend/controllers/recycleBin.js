@@ -334,7 +334,7 @@ exports.cleanupExpiredItems = async (req, res) => {
     }
 };
 
-// ================ UTILITY FUNCTION TO BLACKLIST ALL USER TOKENS ================
+//   == UTILITY FUNCTION TO BLACKLIST ALL USER TOKENS   ==
 const blacklistAllUserTokens = async (userId, reason = 'USER_DELETED') => {
     try {
         // Since we don't track active tokens per user, we'll create a general blacklist entry

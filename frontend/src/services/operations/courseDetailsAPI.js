@@ -26,7 +26,7 @@ const {
 
 
 
-// ================ get All Courses ================
+//   == get All Courses   ==
 export const getAllCourses = async () => {
   const toastId = toast.loading("Loading...")
   let result = []
@@ -46,7 +46,7 @@ export const getAllCourses = async () => {
 }
 
 
-// ================ fetch Course Details ================
+//   == fetch Course Details   ==
 export const fetchCourseDetails = async (courseId) => {
   // const toastId = toast.loading('Loading')
   //   dispatch(setLoading(true));
@@ -70,7 +70,7 @@ export const fetchCourseDetails = async (courseId) => {
   return result
 }
 
-// ================ fetch Course Categories ================
+//   == fetch Course Categories   ==
 export const fetchCourseCategories = async () => {
   try {
     const response = await apiConnector("GET", COURSE_CATEGORIES_API);
@@ -88,7 +88,7 @@ export const fetchCourseCategories = async () => {
 }
 
 
-// ================ add Course Details ================
+//   == add Course Details   ==
 export const addCourseDetails = async (data, token) => {
   const toastId = toast.loading("Loading...")
   let result = null;
@@ -115,7 +115,7 @@ export const addCourseDetails = async (data, token) => {
 }
 
 
-// ================ edit Course Details ================
+//   == edit Course Details   ==
 export const editCourseDetails = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -142,7 +142,7 @@ export const editCourseDetails = async (data, token) => {
 }
 
 
-// ================ create Section ================
+//   == create Section   ==
 export const createSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -168,7 +168,7 @@ export const createSection = async (data, token) => {
 }
 
 
-// ================ create SubSection ================
+//   == create SubSection   ==
 export const createSubSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -205,7 +205,7 @@ export const createSubSection = async (data, token) => {
 }
 
 
-// ================ Update Section ================
+//   == Update Section   ==
 export const updateSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -231,7 +231,7 @@ export const updateSection = async (data, token) => {
 }
 
 
-// ================ Update SubSection ================
+//   == Update SubSection   ==
 export const updateSubSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -268,7 +268,7 @@ export const updateSubSection = async (data, token) => {
 }
 
 
-// ================ delete Section ================
+//   == delete Section   ==
 export const deleteSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -294,7 +294,7 @@ export const deleteSection = async (data, token) => {
 }
 
 
-// ================ delete SubSection ================
+//   == delete SubSection   ==
 export const deleteSubSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -326,7 +326,7 @@ export const deleteSubSection = async (data, token) => {
   return result
 }
 
-// ================ fetch Instructor Courses ================
+//   == fetch Instructor Courses   ==
 export const fetchInstructorCourses = async (token, userRole) => {
   let result = []
   // const toastId = toast.loading("Loading...")
@@ -354,7 +354,7 @@ export const fetchInstructorCourses = async (token, userRole) => {
 }
 
 
-// ================ delete Course ================
+//   == delete Course   ==
 export const deleteCourse = async (data, token) => {
   // const toastId = toast.loading("Loading...")
   try {
@@ -374,7 +374,7 @@ export const deleteCourse = async (data, token) => {
 }
 
 
-// ================ get Full Details Of Course ================
+//   == get Full Details Of Course   ==
 export const getFullDetailsOfCourse = async (courseId, token) => {
   // const toastId = toast.loading("Loading...")
   //   dispatch(setLoading(true));
@@ -418,7 +418,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
 }
 
 
-// ================ mark Lecture As Complete ================
+//   == mark Lecture As Complete   ==
 export const markLectureAsComplete = async (data, token) => {
   let result = null
   // console.log("mark complete data", data)
@@ -449,7 +449,7 @@ export const markLectureAsComplete = async (data, token) => {
 }
 
 
-// ================ create Course Rating  ================
+//   == create Course Rating    ==
 export const createRating = async (data, token) => {
   const toastId = toast.loading("Loading...")
   let success = false

@@ -68,7 +68,7 @@ const validatePassword = (password) => {
     return errors;
 };
 
-// ================ resetPasswordToken ================
+//   == resetPasswordToken   ==
 exports.resetPasswordToken = async (req, res) => {
     try {
         const { email } = req.body;
@@ -179,7 +179,7 @@ exports.resetPasswordToken = async (req, res) => {
     }
 };
 
-// ================ resetPassword ================
+//   == resetPassword   ==
 exports.resetPassword = async (req, res) => {
     try {
         const { token, password, confirmPassword } = req.body;
@@ -525,7 +525,7 @@ exports.resetPassword = async (req, res) => {
     }
 };
 
-// ================ verifyResetToken ================
+//   == verifyResetToken   ==
 exports.verifyResetToken = async (req, res) => {
     try {
         const { token } = req.params;

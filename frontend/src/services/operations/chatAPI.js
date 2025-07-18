@@ -18,7 +18,7 @@ const {
   GET_CHAT_DETAILS_API,
 } = chatEndpoints;
 
-// ================ STUDENT FUNCTIONS ================
+//   == STUDENT FUNCTIONS   ==
 
 // Initiate chat with instructor
 export const initiateChat = async (courseId, token) => {
@@ -81,7 +81,7 @@ export const getStudentChats = async (token, page = 1, limit = 10) => {
   return result;
 };
 
-// ================ INSTRUCTOR FUNCTIONS ================
+//   == INSTRUCTOR FUNCTIONS   ==
 
 // Get instructor's chats
 export const getInstructorChats = async (token, page = 1, limit = 10, courseId = null) => {
@@ -117,7 +117,7 @@ export const getInstructorChats = async (token, page = 1, limit = 10, courseId =
   return result;
 };
 
-// ================ ADMIN FUNCTIONS ================
+//   == ADMIN FUNCTIONS   ==
 
 // Get all chats for admin
 export const getAllChats = async (token, filters = {}) => {
@@ -347,7 +347,7 @@ export const hideMessage = async (messageId, reason, token) => {
   return result;
 };
 
-// ================ MESSAGE FUNCTIONS ================
+//   == MESSAGE FUNCTIONS   ==
 
 // Send message
 export const sendMessage = async (chatId, content, messageType = 'text', image = null, token) => {

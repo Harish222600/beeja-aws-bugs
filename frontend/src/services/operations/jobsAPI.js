@@ -21,7 +21,7 @@ const {
   GET_APPLICATION_STATISTICS_API
 } = jobsEndpoints;
 
-// ================ PUBLIC JOB FUNCTIONS ================
+//   == PUBLIC JOB FUNCTIONS   ==
 
 export const getPublishedJobs = async () => {
   const toastId = toast.loading("Loading jobs...");
@@ -110,7 +110,7 @@ export const submitJobApplication = async (applicationData, token) => {
   return result;
 };
 
-// ================ ADMIN JOB FUNCTIONS ================
+//   == ADMIN JOB FUNCTIONS   ==
 
 export const createJob = async (jobData, token) => {
   const toastId = toast.loading("Creating job...");
@@ -230,7 +230,7 @@ export const toggleJobPublication = async (jobId, token) => {
   return result;
 };
 
-// ================ APPLICATION MANAGEMENT FUNCTIONS ================
+//   == APPLICATION MANAGEMENT FUNCTIONS   ==
 
 export const getJobApplications = async (jobId, token) => {
   const toastId = toast.loading("Loading applications...");

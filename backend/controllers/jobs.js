@@ -2,7 +2,7 @@ const Job = require('../models/job');
 const JobApplication = require('../models/jobApplication');
 const mongoose = require('mongoose');
 
-// ================ CREATE JOB ================
+//   == CREATE JOB   ==
 exports.createJob = async (req, res) => {
     try {
         const {
@@ -126,7 +126,7 @@ exports.createJob = async (req, res) => {
     }
 };
 
-// ================ GET ALL JOBS (ADMIN) ================
+//   == GET ALL JOBS (ADMIN)   ==
 exports.getAllJobs = async (req, res) => {
     try {
         const jobs = await Job.find({})
@@ -149,7 +149,7 @@ exports.getAllJobs = async (req, res) => {
     }
 };
 
-// ================ GET PUBLISHED JOBS (PUBLIC) ================
+//   == GET PUBLISHED JOBS (PUBLIC)   ==
 exports.getPublishedJobs = async (req, res) => {
     try {
         const jobs = await Job.find({
@@ -174,7 +174,7 @@ exports.getPublishedJobs = async (req, res) => {
     }
 };
 
-// ================ GET JOB BY ID ================
+//   == GET JOB BY ID   ==
 exports.getJobById = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -212,7 +212,7 @@ exports.getJobById = async (req, res) => {
     }
 };
 
-// ================ UPDATE JOB ================
+//   == UPDATE JOB   ==
 exports.updateJob = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -293,7 +293,7 @@ exports.updateJob = async (req, res) => {
     }
 };
 
-// ================ DELETE JOB ================
+//   == DELETE JOB   ==
 exports.deleteJob = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -333,7 +333,7 @@ exports.deleteJob = async (req, res) => {
     }
 };
 
-// ================ TOGGLE JOB PUBLICATION STATUS ================
+//   == TOGGLE JOB PUBLICATION STATUS   ==
 exports.toggleJobPublication = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -376,7 +376,7 @@ exports.toggleJobPublication = async (req, res) => {
     }
 };
 
-// ================ GET JOB APPLICATIONS ================
+//   == GET JOB APPLICATIONS   ==
 exports.getJobApplications = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -408,7 +408,7 @@ exports.getJobApplications = async (req, res) => {
     }
 };
 
-// ================ GET ALL APPLICATIONS (ADMIN) ================
+//   == GET ALL APPLICATIONS (ADMIN)   ==
 exports.getAllApplications = async (req, res) => {
     try {
         const applications = await JobApplication.find({})
@@ -431,7 +431,7 @@ exports.getAllApplications = async (req, res) => {
     }
 };
 
-// ================ UPDATE APPLICATION STATUS ================
+//   == UPDATE APPLICATION STATUS   ==
 exports.updateApplicationStatus = async (req, res) => {
     try {
         const { applicationId } = req.params;
@@ -484,7 +484,7 @@ exports.updateApplicationStatus = async (req, res) => {
     }
 };
 
-// ================ GET JOBS ANALYTICS ================
+//   == GET JOBS ANALYTICS   ==
 exports.getJobsAnalytics = async (req, res) => {
     try {
         const totalJobs = await Job.countDocuments();

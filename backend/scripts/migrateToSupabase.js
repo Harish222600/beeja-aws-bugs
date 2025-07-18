@@ -89,7 +89,7 @@ const analyzeCloudinaryUsage = async () => {
         
         // Display results
         console.log('\n📈 CLOUDINARY USAGE ANALYSIS RESULTS:');
-        console.log('=====================================');
+        console.log('     ==');
         
         console.log('\n👥 USER PROFILE IMAGES:');
         console.log(`   Total users: ${analysis.users.total}`);

@@ -1,7 +1,7 @@
 const Order = require('../models/order');
 const mongoose = require('mongoose');
 
-// ================ ORDER MANAGEMENT ================
+//   == ORDER MANAGEMENT   ==
 
 // Get all orders
 exports.getAllOrders = async (req, res) => {

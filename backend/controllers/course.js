@@ -59,7 +59,7 @@ const calculateAverageRating = async (courseId) => {
     }
 };
 
-// ================ create new course ================
+//   == create new course   ==
 exports.createCourse = async (req, res) => {
     try {
         console.log('=== CREATE COURSE REQUEST ===');
@@ -204,7 +204,6 @@ exports.createCourse = async (req, res) => {
         // Create notification for all students and instructors only if course is published
         if (status === "Published") {
             await createNewCourseAnnouncementToAll(newCourse._id, instructorId);
-            console.log("Public notifications sent for new published course:", newCourse.courseName);
         } else {
             console.log("Course created in draft state - only admin notified");
         }
@@ -230,7 +229,7 @@ exports.createCourse = async (req, res) => {
 }
 
 
-// ================ show all courses ================
+//   == show all courses   ==
 exports.getAllCourses = async (req, res) => {
     try {
         const allCourses = await Course.find({},
@@ -303,7 +302,7 @@ exports.getAllCourses = async (req, res) => {
 
 
 
-// ================ Get Course Details ================
+//   == Get Course Details   ==
 exports.getCourseDetails = async (req, res) => {
     try {
         // get course ID
@@ -387,7 +386,7 @@ exports.getCourseDetails = async (req, res) => {
 }
 
 
-// ================ Get Full Course Details ================
+//   == Get Full Course Details   ==
 exports.getFullCourseDetails = async (req, res) => {
     try {
         const { courseId } = req.body
@@ -553,7 +552,7 @@ exports.getFullCourseDetails = async (req, res) => {
 
 
 
-// ================ Edit Course Details ================
+//   == Edit Course Details   ==
 exports.editCourse = async (req, res) => {
     try {
         console.log("Edit Course Request Body:", req.body);
@@ -675,7 +674,6 @@ exports.editCourse = async (req, res) => {
             // If course is being published for the first time, notify all users
             if (updates.status === "Published" && course.status === "Draft") {
                 await createNewCourseAnnouncementToAll(courseId, course.instructor);
-                console.log("Course published - notifications sent to all users");
             }
         }
         
@@ -704,7 +702,7 @@ exports.editCourse = async (req, res) => {
 
 
 
-// ================ Get a list of Course for a given Instructor ================
+//   == Get a list of Course for a given Instructor   ==
 exports.getInstructorCourses = async (req, res) => {
     try {
         // Get the instructor ID from the authenticated user or request body
@@ -757,7 +755,7 @@ exports.getInstructorCourses = async (req, res) => {
 
 
 
-// ================ Delete the Course ================
+//   == Delete the Course   ==
 exports.deleteCourse = async (req, res) => {
     try {
         const { courseId } = req.body

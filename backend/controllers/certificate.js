@@ -4,7 +4,7 @@ const User = require("../models/user");
 const CourseProgress = require("../models/courseProgress");
 const { regenerateCertificatesForCourse } = require("../utils/certificateRegeneration");
 
-// ================ Generate Certificate ================
+//   == Generate Certificate   ==
 exports.generateCertificate = async (req, res) => {
   try {
     const { courseId } = req.body;
@@ -220,7 +220,7 @@ exports.generateCertificate = async (req, res) => {
   }
 };
 
-// ================ Verify Certificate ================
+//   == Verify Certificate   ==
 exports.verifyCertificate = async (req, res) => {
   try {
     const { certificateId } = req.params;
@@ -258,7 +258,7 @@ exports.verifyCertificate = async (req, res) => {
   }
 };
 
-// ================ Get User Certificates ================
+//   == Get User Certificates   ==
 exports.getUserCertificates = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -289,7 +289,7 @@ exports.getUserCertificates = async (req, res) => {
   }
 };
 
-// ================ Regenerate Certificates for Course (Admin Only) ================
+//   == Regenerate Certificates for Course (Admin Only)   ==
 exports.regenerateCertificatesForCourse = async (req, res) => {
   try {
     const { courseId } = req.body;
@@ -335,7 +335,7 @@ exports.regenerateCertificatesForCourse = async (req, res) => {
   }
 };
 
-// ================ Get Certificate Regeneration Status ================
+//   == Get Certificate Regeneration Status   ==
 exports.getCertificateRegenerationStatus = async (req, res) => {
   try {
     const { courseId } = req.params;

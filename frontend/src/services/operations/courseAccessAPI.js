@@ -10,7 +10,7 @@ const {
   HANDLE_ACCESS_REQUEST_API,
 } = courseAccessEndpoints
 
-// ================ Get Free Courses ================
+//   == Get Free Courses   ==
 export const getFreeCourses = async (page = 1, limit = 10, category = null) => {
   let result = []
   const toastId = toast.loading("Loading...")
@@ -37,7 +37,7 @@ export const getFreeCourses = async (page = 1, limit = 10, category = null) => {
   return result
 }
 
-// ================ Request Course Access ================
+//   == Request Course Access   ==
 export const requestCourseAccess = async (data, token) => {
   let result = null
   const toastId = toast.loading("Submitting request...")
@@ -66,7 +66,7 @@ export const requestCourseAccess = async (data, token) => {
   return result
 }
 
-// ================ Get User Access Requests ================
+//   == Get User Access Requests   ==
 export const getUserAccessRequests = async (token) => {
   let result = []
 
@@ -90,7 +90,7 @@ export const getUserAccessRequests = async (token) => {
   return result
 }
 
-// ================ Get All Access Requests (Admin) ================
+//   == Get All Access Requests (Admin)   ==
 export const getAllAccessRequests = async (token, status = null, page = 1, limit = 10) => {
   let result = null
   const toastId = toast.loading("Loading...")
@@ -121,7 +121,7 @@ export const getAllAccessRequests = async (token, status = null, page = 1, limit
   return result
 }
 
-// ================ Handle Access Request (Admin) ================
+//   == Handle Access Request (Admin)   ==
 export const handleAccessRequest = async (requestId, action, adminResponse, token) => {
   let result = null
   const toastId = toast.loading("Processing...")

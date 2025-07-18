@@ -4,7 +4,7 @@ import { apiConnector } from '../apiConnector';
 import { catalogData } from '../apis';
 
 
-// ================ get Catalog Page Data  ================
+//   == get Catalog Page Data    ==
 export const getCatalogPageData = async (categoryId) => {
   // const toastId = toast.loading("Loading...");
   let result = [];

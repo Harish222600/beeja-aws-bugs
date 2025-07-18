@@ -4,7 +4,7 @@ const SubSection = require("../models/subSection")
 const CourseProgress = require("../models/courseProgress")
 
 
-// ================ update Course Progress ================
+//   == update Course Progress   ==
 exports.updateCourseProgress = async (req, res) => {
   console.log("updateCourseProgress called with:", req.body)
   const { courseId, subsectionId } = req.body
@@ -96,7 +96,7 @@ exports.updateCourseProgress = async (req, res) => {
 
 
 
-// ================ update Quiz Progress ================
+//   == update Quiz Progress   ==
 exports.updateQuizProgress = async (req, res) => {
   console.log("updateQuizProgress called with:", req.body)
   const { courseId, subsectionId, quizId, score, totalMarks } = req.body
@@ -215,7 +215,7 @@ exports.updateQuizProgress = async (req, res) => {
   }
 }
 
-// ================ check Section Access ================
+//   == check Section Access   ==
 exports.checkSectionAccess = async (req, res) => {
   const { courseId, sectionId } = req.body
   const userId = req.user.id
@@ -352,7 +352,7 @@ exports.checkSectionAccess = async (req, res) => {
   }
 }
 
-// ================ get Progress Percentage ================
+//   == get Progress Percentage   ==
 exports.getProgressPercentage = async (req, res) => {
   const { courseId } = req.body
   const userId = req.user.id

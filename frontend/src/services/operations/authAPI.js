@@ -14,7 +14,7 @@ const {
   RESETPASSWORD_API,
 } = endpoints
 
-// ================ send Otp ================
+//   == send Otp   ==
 export function sendOtp(email, navigate) {
   return async (dispatch) => {
 
@@ -45,7 +45,7 @@ export function sendOtp(email, navigate) {
   }
 }
 
-// ================ sign Up ================
+//   == sign Up   ==
 export function signUp(accountType, firstName, lastName, email, password, confirmPassword, otp, navigate) {
   return async (dispatch) => {
 
@@ -85,7 +85,7 @@ export function signUp(accountType, firstName, lastName, email, password, confir
 }
 
 
-// ================ Login ================
+//   == Login   ==
 export function login(email, password, navigate) {
   return async (dispatch) => {
 
@@ -128,7 +128,7 @@ export function login(email, password, navigate) {
 }
 
 
-// ================ get Password Reset Token ================
+//   == get Password Reset Token   ==
 export function getPasswordResetToken(email, setEmailSent) {
   return async (dispatch) => {
     const toastId = toast.loading("Sending reset email...")
@@ -168,7 +168,7 @@ export function getPasswordResetToken(email, setEmailSent) {
   }
 }
 
-// ================ verify Reset Token ================
+//   == verify Reset Token   ==
 export function verifyResetToken(token) {
   return async () => {
     try {
@@ -189,7 +189,7 @@ export function verifyResetToken(token) {
   }
 }
 
-// ================ reset Password ================
+//   == reset Password   ==
 export function resetPassword(password, confirmPassword, token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Resetting password...")
@@ -247,7 +247,7 @@ export function resetPassword(password, confirmPassword, token, navigate) {
 }
 
 
-// ================ Logout ================
+//   == Logout   ==
 export function logout(navigate) {
   return (dispatch) => {
     dispatch(clearAuth())

@@ -15,7 +15,7 @@ const { cleanupCourseFiles } = require('../utils/fileCleanup');
 
 
 
-// ================ update Profile ================
+//   == update Profile   ==
 exports.updateProfile = async (req, res) => {
     try {
         // extract data
@@ -70,7 +70,7 @@ exports.updateProfile = async (req, res) => {
 }
 
 
-// ================ delete Account ================
+//   == delete Account   ==
 exports.deleteAccount = async (req, res) => {
     try {
         // extract user id
@@ -206,7 +206,7 @@ exports.deleteAccount = async (req, res) => {
 }
 
 
-// ================ get details of user ================
+//   == get details of user   ==
 exports.getUserDetails = async (req, res) => {
     try {
         // extract userId
@@ -236,7 +236,7 @@ exports.getUserDetails = async (req, res) => {
 
 
 
-// ================ Update User profile Image ================
+//   == Update User profile Image   ==
 exports.updateUserProfileImage = async (req, res) => {
     try {
         const profileImage = req.file; // multer provides file in req.file when using upload.single()
@@ -327,7 +327,7 @@ exports.updateUserProfileImage = async (req, res) => {
 
 
 
-// ================ Get Enrolled Courses ================
+//   == Get Enrolled Courses   ==
 exports.getEnrolledCourses = async (req, res) => {
     try {
         const userId = req.user.id
@@ -481,7 +481,7 @@ exports.getEnrolledCourses = async (req, res) => {
 
 
 
-// ================ instructor Dashboard ================
+//   == instructor Dashboard   ==
 exports.instructorDashboard = async (req, res) => {
     try {
         const courseDetails = await Course.find({ instructor: req.user.id })

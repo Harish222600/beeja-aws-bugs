@@ -10,7 +10,7 @@ const {
 // Import middleware
 const { auth, isAdmin } = require('../middleware/auth');
 
-// ================ FEATURED COURSES ROUTES ================
+//   == FEATURED COURSES ROUTES   ==
 // Get featured courses (public route)
 router.get('/', getFeaturedCourses);
 

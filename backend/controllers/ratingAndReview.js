@@ -3,7 +3,7 @@ const Course = require('../models/course')
 const RatingAndReview = require('../models/ratingAndReview')
 const mongoose = require('mongoose');
 
-// ================ Create Rating ================
+//   == Create Rating   ==
 exports.createRating = async (req, res) => {
     try {
         // get data
@@ -91,7 +91,7 @@ exports.createRating = async (req, res) => {
 
 
 
-// ================ Get Average Rating ================
+//   == Get Average Rating   ==
 exports.getAverageRating = async (req, res) => {
     try {
             //get course ID
@@ -144,7 +144,7 @@ exports.getAverageRating = async (req, res) => {
 
 
 
-// ================ Get All Rating And Reviews ================
+//   == Get All Rating And Reviews   ==
 exports.getAllRatingReview = async(req, res)=>{
     try{
         const allReviews = await RatingAndReview.find({})
@@ -176,7 +176,7 @@ exports.getAllRatingReview = async(req, res)=>{
     }
 }
 
-// ================ Get Selected Reviews Only ================
+//   == Get Selected Reviews Only   ==
 exports.getSelectedReviews = async(req, res)=>{
     try{
         const selectedReviews = await RatingAndReview.find({ isSelected: true })
@@ -208,7 +208,7 @@ exports.getSelectedReviews = async(req, res)=>{
     }
 }
 
-// ================ Admin: Get All Reviews for Management ================
+//   == Admin: Get All Reviews for Management   ==
 exports.getAllReviewsForAdmin = async(req, res)=>{
     try{
         const allReviews = await RatingAndReview.find({})
@@ -240,7 +240,7 @@ exports.getAllReviewsForAdmin = async(req, res)=>{
     }
 }
 
-// ================ Admin: Toggle Review Selection ================
+//   == Admin: Toggle Review Selection   ==
 exports.toggleReviewSelection = async(req, res)=>{
     try{
         const { reviewId } = req.params;
@@ -294,7 +294,7 @@ exports.toggleReviewSelection = async(req, res)=>{
     }
 }
 
-// ================ Admin: Bulk Update Review Selection ================
+//   == Admin: Bulk Update Review Selection   ==
 exports.bulkUpdateReviewSelection = async(req, res)=>{
     try{
         const { reviewIds, isSelected } = req.body;
@@ -338,7 +338,7 @@ exports.bulkUpdateReviewSelection = async(req, res)=>{
     }
 }
 
-// ================ Admin: Delete Review ================
+//   == Admin: Delete Review   ==
 exports.deleteReview = async(req, res)=>{
     try{
         const { reviewId } = req.params;

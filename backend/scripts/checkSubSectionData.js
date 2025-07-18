@@ -14,7 +14,7 @@ async function checkSubSectionData() {
     try {
         const subsections = await SubSection.find({}).limit(5);
         console.log('Sample SubSection data:');
-        console.log('======================');
+        console.log('   =');
         
         subsections.forEach((subsection, index) => {
             console.log(`\nSubSection ${index + 1}:`);

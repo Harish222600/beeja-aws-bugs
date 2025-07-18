@@ -23,7 +23,7 @@ function loadScript(src) {
     })
 }
 
-// ================ buyCourse ================ 
+//   == buyCourse   == 
 export async function buyCourse(token, coursesId, userDetails, navigate, dispatch, couponData = null) {
     const toastId = toast.loading("Processing your enrollment...");
 
@@ -76,7 +76,7 @@ export async function buyCourse(token, coursesId, userDetails, navigate, dispatc
 }
 
 
-// ================ send Payment Success Email ================
+//   == send Payment Success Email   ==
 async function sendPaymentSuccessEmail(response, amount, token) {
     try {
         await apiConnector("POST", SEND_PAYMENT_SUCCESS_EMAIL_API, {

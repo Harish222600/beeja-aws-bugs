@@ -13,7 +13,7 @@ const {
     createNewCourseAnnouncementToAll
 } = require('./notification');
 
-// ================ TOGGLE USER STATUS ================
+//   == TOGGLE USER STATUS   ==
 exports.toggleUserStatus = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -54,7 +54,7 @@ exports.toggleUserStatus = async (req, res) => {
     }
 };
 
-// ================ GET ALL USERS ================
+//   == GET ALL USERS   ==
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find({})
@@ -77,7 +77,7 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-// ================ CREATE USER ================
+//   == CREATE USER   ==
 exports.createUser = async (req, res) => {
     try {
         const { firstName, lastName, email, password, accountType, contactNumber } = req.body;
@@ -191,7 +191,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// ================ UPDATE USER ================
+//   == UPDATE USER   ==
 exports.updateUser = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -228,7 +228,7 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// ================ TOGGLE COURSE VISIBILITY ================
+//   == TOGGLE COURSE VISIBILITY   ==
 exports.toggleCourseVisibility = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -257,7 +257,6 @@ exports.toggleCourseVisibility = async (req, res) => {
         if (course.isVisible && !wasPublished) {
             try {
                 await createNewCourseAnnouncementToAll(courseId, course.instructor._id);
-                console.log("Public notifications sent for newly visible course:", course.courseName);
             } catch (notificationError) {
                 console.error("Error sending course visibility notifications:", notificationError);
                 // Don't fail the visibility toggle if notifications fail
@@ -283,7 +282,7 @@ exports.toggleCourseVisibility = async (req, res) => {
     }
 };
 
-// ================ DELETE USER ================
+//   == DELETE USER   ==
 exports.deleteUser = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -328,7 +327,7 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-// ================ GET ALL COURSES ================
+//   == GET ALL COURSES   ==
 exports.getAllCourses = async (req, res) => {
     try {
         console.log('Fetching all courses with populated category...');
@@ -355,7 +354,7 @@ exports.getAllCourses = async (req, res) => {
     }
 };
 
-// ================ APPROVE COURSE ================
+//   == APPROVE COURSE   ==
 exports.approveCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -371,7 +370,6 @@ exports.approveCourse = async (req, res) => {
         // Send notifications when course is approved and published
         try {
             await createNewCourseAnnouncementToAll(courseId, course.instructor._id);
-            console.log("Public notifications sent for newly published course:", course.courseName);
         } catch (notificationError) {
             console.error("Error sending course approval notifications:", notificationError);
             // Don't fail the approval if notifications fail
@@ -392,7 +390,7 @@ exports.approveCourse = async (req, res) => {
     }
 };
 
-// ================ DELETE COURSE ================
+//   == DELETE COURSE   ==
 exports.deleteCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -473,7 +471,7 @@ exports.deleteCourse = async (req, res) => {
     }
 };
 
-// ================ SET COURSE TYPE (ADMIN) ================
+//   == SET COURSE TYPE (ADMIN)   ==
 exports.setCourseType = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -532,7 +530,7 @@ exports.setCourseType = async (req, res) => {
     }
 };
 
-// ================ GET ANALYTICS DATA ================
+//   == GET ANALYTICS DATA   ==
 exports.getAnalytics = async (req, res) => {
     try {
         const totalUsers = await User.countDocuments();
@@ -638,7 +636,7 @@ exports.getAnalytics = async (req, res) => {
     }
 };
 
-// ================ GET ALL INSTRUCTORS ================
+//   == GET ALL INSTRUCTORS   ==
 exports.getAllInstructors = async (req, res) => {
     try {
         const instructors = await User.find({ accountType: 'Instructor' })
@@ -867,8 +865,6 @@ exports.sendNotification = async (req, res) => {
         // Insert all notifications in bulk
         const insertedNotifications = await Notification.insertMany(notifications);
 
-        console.log(`Created ${insertedNotifications.length} individual notifications for ${recipientType} users with bulkId: ${bulkId}`);
-
         return res.status(201).json({
             success: true,
             message: `Notification sent to ${targetUsers.length} users successfully`,
@@ -997,8 +993,6 @@ exports.getAllNotifications = async (req, res) => {
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .slice(0, 50); // Limit to 50 most recent
 
-        console.log('Found grouped notifications:', formattedNotifications.length);
-
         return res.status(200).json({
             success: true,
             data: formattedNotifications,
@@ -1019,15 +1013,8 @@ exports.deleteNotification = async (req, res) => {
     try {
         const { notificationId } = req.params;
 
-        console.log('Delete notification request:', { 
-            notificationId, 
-            user: req.user?.id,
-            userType: req.user?.accountType 
-        });
-
         // Validate notification ID format
         if (!notificationId) {
-            console.log('Missing notification ID');
             return res.status(400).json({
                 success: false,
                 message: 'Notification ID is required'
@@ -1035,7 +1022,6 @@ exports.deleteNotification = async (req, res) => {
         }
 
         if (!mongoose.Types.ObjectId.isValid(notificationId)) {
-            console.log('Invalid notification ID format:', notificationId);
             return res.status(400).json({
                 success: false,
                 message: 'Invalid notification ID format'
@@ -1050,46 +1036,34 @@ exports.deleteNotification = async (req, res) => {
         
         if (bulkNotifications.length > 0) {
             // This is a bulk notification - delete all notifications with this bulkId
-            console.log(`Found ${bulkNotifications.length} notifications with bulkId: ${notificationId}`);
             
             // Delete related user notification statuses for all bulk notifications
             const bulkNotificationIds = bulkNotifications.map(n => n._id);
             const statusDeleteResult = await UserNotificationStatus.deleteMany({
                 notification: { $in: bulkNotificationIds }
             });
-            console.log(`Deleted ${statusDeleteResult.deletedCount} user notification statuses for bulk notifications`);
 
             // Delete all notifications with this bulkId
             const deleteResult = await Notification.deleteMany({ bulkId: notificationId });
             deletedCount = deleteResult.deletedCount;
-            console.log(`Successfully deleted ${deletedCount} bulk notifications`);
         } else {
             // Try to find individual notification by ID
             const notification = await Notification.findById(notificationId);
             if (!notification) {
-                console.log('Notification not found in database');
                 return res.status(404).json({
                     success: false,
                     message: 'Notification not found'
                 });
             }
 
-            console.log('Found individual notification to delete:', {
-                id: notification._id,
-                title: notification.title,
-                type: notification.type
-            });
-
             // Delete related user notification statuses
             const statusDeleteResult = await UserNotificationStatus.deleteMany({
                 notification: notificationId
             });
-            console.log(`Deleted ${statusDeleteResult.deletedCount} user notification statuses`);
 
             // Delete the individual notification
             await Notification.findByIdAndDelete(notificationId);
             deletedCount = 1;
-            console.log('Successfully deleted individual notification');
         }
 
         return res.status(200).json({
@@ -1115,7 +1089,7 @@ exports.deleteNotification = async (req, res) => {
         });
     }
 };
-// ================ CREATE COURSE AS ADMIN ================
+//   == CREATE COURSE AS ADMIN   ==
 exports.createCourseAsAdmin = async (req, res) => {
     try {
         console.log('Create course request received:', {
@@ -1257,14 +1231,10 @@ exports.createCourseAsAdmin = async (req, res) => {
         try {
             // Always create notification for admins about new course creation
             await createNewCourseCreationNotification(newCourse._id, instructorId);
-            console.log("Admin notification sent for new course creation");
 
             // Create notification for all students and instructors if course is published
             if (status === "Published") {
                 await createNewCourseAnnouncementToAll(newCourse._id, instructorId);
-                console.log("Public notifications sent for new published course:", newCourse.courseName);
-            } else {
-                console.log("Course created in draft state - only admin notified");
             }
         } catch (notificationError) {
             console.error("Error sending notifications:", notificationError);

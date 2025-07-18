@@ -7,7 +7,7 @@ const RatingAndReview = require('../models/ratingAndReview');
 const { convertSecondsToDuration } = require("../utils/secToDuration");
 const mongoose = require('mongoose');
 
-// ================ REQUEST COURSE ACCESS ================
+//   == REQUEST COURSE ACCESS   ==
 exports.requestCourseAccess = async (req, res) => {
     try {
         const { courseId, requestMessage } = req.body;
@@ -78,7 +78,7 @@ exports.requestCourseAccess = async (req, res) => {
     }
 };
 
-// ================ GET USER'S ACCESS REQUESTS ================
+//   == GET USER'S ACCESS REQUESTS   ==
 exports.getUserAccessRequests = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -104,7 +104,7 @@ exports.getUserAccessRequests = async (req, res) => {
     }
 };
 
-// ================ GET ALL ACCESS REQUESTS (ADMIN) ================
+//   == GET ALL ACCESS REQUESTS (ADMIN)   ==
 exports.getAllAccessRequests = async (req, res) => {
     try {
         const { status, page = 1, limit = 10 } = req.query;
@@ -150,7 +150,7 @@ exports.getAllAccessRequests = async (req, res) => {
     }
 };
 
-// ================ APPROVE/REJECT ACCESS REQUEST (ADMIN) ================
+//   == APPROVE/REJECT ACCESS REQUEST (ADMIN)   ==
 exports.handleAccessRequest = async (req, res) => {
     try {
         const { requestId } = req.params;
@@ -279,7 +279,7 @@ const calculateAverageRating = async (courseId) => {
     }
 };
 
-// ================ GET FREE COURSES ================
+//   == GET FREE COURSES   ==
 exports.getFreeCourses = async (req, res) => {
     try {
         const { page = 1, limit = 10, category } = req.query;
@@ -366,7 +366,7 @@ exports.getFreeCourses = async (req, res) => {
     }
 };
 
-// ================ REQUEST BUNDLE ACCESS ================
+//   == REQUEST BUNDLE ACCESS   ==
 exports.requestBundleAccess = async (req, res) => {
     try {
         const { courseIds } = req.body;
@@ -432,7 +432,7 @@ exports.requestBundleAccess = async (req, res) => {
     }
 };
 
-// ================ GET ALL BUNDLE REQUESTS (ADMIN) ================
+//   == GET ALL BUNDLE REQUESTS (ADMIN)   ==
 exports.getBundleRequests = async (req, res) => {
     try {
         const { status, page = 1, limit = 10 } = req.query;
@@ -477,7 +477,7 @@ exports.getBundleRequests = async (req, res) => {
     }
 };
 
-// ================ UPDATE BUNDLE REQUEST STATUS (ADMIN) ================
+//   == UPDATE BUNDLE REQUEST STATUS (ADMIN)   ==
 exports.updateBundleRequestStatus = async (req, res) => {
     try {
         const { bundleId } = req.params;
