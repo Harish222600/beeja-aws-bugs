@@ -10,7 +10,8 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 RUN npm install
 RUN npm run build
 
-FROM nginx:alpine
+FROM docker.io/nginx:alpine
+
 COPY --from=0 /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
