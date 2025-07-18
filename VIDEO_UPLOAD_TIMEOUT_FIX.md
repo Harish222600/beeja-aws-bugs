@@ -218,6 +218,11 @@ sudo ufw status
 sudo ufw allow 80/tcp
 ```
 
+#### Issue: "PM2 folder creation errors"
+**Solution:** Fixed by using Node.js directly instead of PM2
+- The backend now starts with `node server.aws.js` for better container compatibility
+- No PM2 configuration needed
+
 ## 📁 File Structure
 
 ```
