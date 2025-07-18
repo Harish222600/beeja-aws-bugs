@@ -16,6 +16,9 @@ server.headersTimeout = 66000; // Higher than keepAliveTimeout
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+// Trust proxy for nginx reverse proxy
+app.set('trust proxy', true);
+
 // connection to DB and Supabase
 const { connectDB, isConnected, getConnectionStatus } = require('./config/database');
 const { initializeStorageBuckets } = require('./config/supabaseStorage');

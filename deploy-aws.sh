@@ -164,76 +164,26 @@ EOF
 setup_nginx() {
     print_status "Setting up Nginx reverse proxy with upload optimizations..."
     
-    sudo tee /etc/nginx/sites-available/lms << 'EOF'
-server {
-    listen 80;
-    server_name _;
+    # Note: Using containerized nginx instead of system nginx for better integration
+    print_status "Nginx will be deployed as a Docker container with the application"
+    print_status "Using nginx.aws.conf for optimized reverse proxy configuration"
     
-    # Increase client body size for large video uploads
-    client_max_body_size 2G;
-    client_body_timeout 300s;
-    client_header_timeout 300s;
+    # Validate nginx configuration exists
+    if [ ! -f "nginx.aws.conf" ]; then
+        print_error "nginx.aws.conf not found! This file is required for the reverse proxy setup."
+        exit 1
+    fi
     
-    # Proxy timeouts for large uploads
-    proxy_connect_timeout 300s;
-    proxy_send_timeout 300s;
-    proxy_read_timeout 300s;
-    send_timeout 300s;
+    # Validate nginx configuration syntax
+    if docker run --rm -v "$(pwd)/nginx.aws.conf:/etc/nginx/conf.d/default.conf:ro" nginx:1.25-alpine nginx -t >/dev/null 2>&1; then
+        print_success "Nginx configuration validated successfully"
+    else
+        print_error "Nginx configuration has syntax errors"
+        docker run --rm -v "$(pwd)/nginx.aws.conf:/etc/nginx/conf.d/default.conf:ro" nginx:1.25-alpine nginx -t
+        exit 1
+    fi
     
-    # Buffer settings for large uploads
-    client_body_buffer_size 128k;
-    proxy_buffering off;
-    proxy_request_buffering off;
-    
-    # Frontend
-    location / {
-        proxy_pass http://localhost:5173;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-    }
-    
-    # Backend API with special handling for uploads
-    location /api/ {
-        proxy_pass http://localhost:5001;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-        
-        # Special settings for chunked uploads
-        proxy_request_buffering off;
-        proxy_buffering off;
-        proxy_max_temp_file_size 0;
-    }
-    
-    # Health check endpoint
-    location /health {
-        proxy_pass http://localhost:5001/health;
-        access_log off;
-    }
-}
-EOF
-    
-    # Enable the site
-    sudo ln -sf /etc/nginx/sites-available/lms /etc/nginx/sites-enabled/
-    sudo rm -f /etc/nginx/sites-enabled/default
-    
-    # Test and reload Nginx
-    sudo nginx -t
-    sudo systemctl restart nginx
-    sudo systemctl enable nginx
-    
-    print_success "Nginx configured with upload optimizations"
+    print_success "Nginx reverse proxy configuration ready"
 }
 
 # Create environment file for AWS
